@@ -15,6 +15,7 @@ install:
   - avr-gcc --version
   - make --version
 
+
 # Execute Commands bevor Build
 before_script:
   - chmod 0777 scripts/CI/makefile2unix.sh
@@ -26,6 +27,7 @@ before_script:
   - scripts/CI/makefile2unix.sh twiDEMO/
   - scripts/CI/makefile2unix.sh lcd/
   - scripts/CI/makefile2unix.sh lcdDEMO/
+
 
 # Run Build Script
 script:

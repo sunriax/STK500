@@ -1,0 +1,1 @@
+/C:/Users/local/Nextcloud/Github/manual/license.md

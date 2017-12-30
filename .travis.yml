@@ -25,6 +25,8 @@ before_script:
   - scripts/CI/makefile2unix.sh spiDEMO/
   - scripts/CI/makefile2unix.sh twi/
   - scripts/CI/makefile2unix.sh twiDEMO/
+  - scripts/CI/makefile2unix.sh pwm/
+  - scripts/CI/makefile2unix.sh pwmDEMO/
   - scripts/CI/makefile2unix.sh lcd/
   - scripts/CI/makefile2unix.sh lcdDEMO/
 
@@ -40,6 +42,10 @@ script:
   - make
   - cd ../../
   - cd twi/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  - cd pwm/Debug
   - mkdir src
   - make
   - cd ../../

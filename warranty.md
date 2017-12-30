@@ -1,1 +1,0 @@
-/C:/Users/local/Nextcloud/Github/manual/warranty.md

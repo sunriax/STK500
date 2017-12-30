@@ -24,7 +24,13 @@ The STK500 repository is a set of library's used in the [module](https://github.
 
 ## Getting Started
 
-Every project has a demo application as side car (e.g. uart has uartDEMO). This demo can be used as quick start guide. We also try to keep our [WIKI](https://wiki.sunriax.at) up-to-date.
+Every project has a demo application as side car (e.g. uart has uartDEMO). This demo can be used as quick start guide. We also try to keep our [WIKI](https://wiki.sunriax.at) up-to-date. Also there is a short description at the libraries folder:
+
+* [UART](./uart/uart.md)
+* [SPI](./spi/spi.md)
+* [TWI](./twi/twi.md)
+* [PWM](./pwm/pwm.md)
+* [LCD](./lcd/lcd.md)
 
 ## Important Notice
 

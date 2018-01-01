@@ -47,15 +47,15 @@ script:
   - mkdir src
   - make
   - cd ../../
-  - cd pwm/Debug
-  - mkdir src
-  - make
-  - cd ../../
+  # - cd pwm/Debug
+  # - mkdir src
+  # - make
+  # - cd ../../
   # - cd adc/Debug
   # - mkdir src
   # - make
   # - cd ../../
-  # - cd lcd/Debug
-  # - mkdir src
-  # - make
-  # - cd ../../
+  - cd lcd/Debug
+  - mkdir src
+  - make
+  - cd ../../

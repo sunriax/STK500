@@ -15,6 +15,7 @@
 
 #include <avr/io.h>
 
+#include "../pwm/pwm.h"
 
 int main(void)
 {

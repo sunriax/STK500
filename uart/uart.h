@@ -28,7 +28,7 @@
 	#define BAUD 9600UL
 #endif
 
-#ifndef U2XEN	// Samplerate (Enable = 8 Samples/Bit | Disable = 16 Samples/Bit)
+#ifndef U2XEN	// Samplerate (defined = 8 Samples/Bit | undefined = 16 Samples/Bit)
 	#define U2XEN
 #endif
 

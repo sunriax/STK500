@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-..\pwm\pwm.c
+..\adc\adc.c
 
 main.c
 

@@ -188,7 +188,7 @@ void uart_reset(void)
 				// If received data is equal delimiter return
 				if(data == delimiter)
 				{
-					// If NL & CR are required
+					// If LF & CR are required
 					if(echo == 0xF0)
 					{
 						uart_setchar('\n');

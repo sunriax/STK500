@@ -15,7 +15,7 @@ In this short introduction the basic function of the spi library and their usage
 | SPI_MISO      | PA/B/C/D/...(1..x)  | I/O  |   I    |   O   | SPI Master in slave out pin  |
 | SPI_SCK       | PA/B/C/D/...(1..x)  | I/O  |   O    |   I   | SPI Clock pin                |
 | SPI_WCOL_PORT | PORTA/B/C/D/...     | REG  |        |       | SPI Error display port       |
-| SPI_WCOL_PIN  | PA/B/C/D/...(1..x)  | I/O  |   O    |   I   | SPI Error display pin        |
+| SPI_WCOL_PIN  | PA/B/C/D/...(1..x)  | I/O  |   O    |       | SPI Error display pin        |
 
 
 ## Initial Function

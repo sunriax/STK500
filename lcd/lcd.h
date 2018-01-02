@@ -87,9 +87,9 @@
 	#define LCD_STARTUP_TIME 10
 #endif
 
-// #ifndef LCD_RETURN_TIME	// LCD return home time in ms
-//	#define LCD_RETURN_TIME 2
-// #endif
+#ifndef LCD_RETURN_TIME	// LCD return home time in ms
+	#define LCD_RETURN_TIME 2
+#endif
 
 #ifndef LCD_ENTRY_TIME	// LCD entry mode time in us
 	#define LCD_ENTRY_TIME 37

@@ -284,18 +284,18 @@ void lcd_sl2ascii(const signed long data, unsigned char base, unsigned char leng
 //	+---------------------------------------------------------------+
 void lcd_d2ascii(const double data, unsigned char length, unsigned char precision)
 {
-	unsigned char buffer[length + prec + 2];	// ASCII buffer (double width) digits + \0 escape character
+	unsigned char buffer[length + precision + 2];	// ASCII buffer (double width) digits + \0 escape character
 	
 	// If length is empty stop
 	if(length == 0)
 		return;
 	
 	// If length + 1 is lower than precision 
-	if(length + 1 < prec)
+	if(length + 1 < precision)
 		return;
 	
 	// Convert double to ASCII
-	dtostrf(data, length, prec, (char*)(buffer));
+	dtostrf(data, length, precision, (char*)(buffer));
 	
 	// Write String to LCD
 	lcd_string(buffer);

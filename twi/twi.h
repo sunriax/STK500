@@ -60,14 +60,6 @@
 	#define TWI_READ 0x01
 #endif
 
-#ifndef TWI_SLAVE		// TWI slave setup
-	#define TWI_SLAVE 0x01
-#endif
-
-#ifndef TWI_MASTER		// TWI master setup
-	#define TWI_MASTER 0x01
-#endif
-
 // ATmega status codes (!!! Do not change !!!)
 #define TWI_STATUS_START 0x08
 #define TWI_STATUS_REPEATED_START 0x10
@@ -96,9 +88,9 @@
 #include <avr/interrupt.h>
 
 unsigned char twi_init(unsigned char operation);
+unsigned char twi_status(void);
 unsigned char twi_start(void);
          void twi_stop(void);
-unsigned char twi_status(void);
 unsigned char twi_address(unsigned char address);
 unsigned char twi_get(unsigned char *data);
 

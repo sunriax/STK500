@@ -24,13 +24,6 @@
 
 int main(void)
 {	
-	// SPI Initialization
-	// SPI mode:      Master
-	// SPI direction: MSB
-	// SPI polarity:  LOW/offset
-	// SPI clock:     F_CPU/2 (SPI2X=enabled)
-	spi_init(0xFF, 0x00, 0x00, 0x00);
-	
 	// Port setup
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// !!! Actual there is no abstraction for the PORT setup !!!
@@ -40,6 +33,13 @@ int main(void)
 	DDRC = 0xFF;	// Set PORTC to output
 	PORTA = 0x0F;	// Set PULLUP at PORTA (3:0)
 	PORTC = 0x00;	// Set PORTC to LOW
+	
+	// SPI Initialization
+	// SPI mode:      Master
+	// SPI direction: MSB
+	// SPI polarity:  LOW/offset
+	// SPI clock:     F_CPU/2 (SPI2X=enabled)
+	spi_init(0xFF, 0x00, 0x00, 0x00);
 	
     while (1) 
     {

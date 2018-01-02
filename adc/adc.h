@@ -78,11 +78,11 @@
 
 // Definition of ADC processing (Enabled = Interrupt/Disabled = Polling)
 
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// ! Interrupts are not included in this library !
-// ! If interrupts are used, disable the polling !
-// ! by uncommenting the next lines              !
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!! Interrupts are not included in this library !!!
+// !!! If interrupts are used, disable the polling !!!
+// !!! methods by uncommenting the next lines      !!!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 // #ifndef ADC_ADIE
 //	#define ADC_ADIE
@@ -90,9 +90,10 @@
 
 #include <avr/io.h>
 
-void adc_init(void);
-void adc_channel(unsigned char channel);
-void adc_stop(void);
+        void adc_init(void);
+        void adc_channel(unsigned char channel);
+        void adc_stop(void);
 unsigned int adc_read(void);
+unsigned int adc_average(unsigned char size);
 
 #endif /* ADC_H_ */

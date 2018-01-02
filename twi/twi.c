@@ -26,14 +26,14 @@ unsigned char twi_init(unsigned char operation)
 	// Master / Slave setup
 	switch(operation)
 	{
-		case 1   :	// Master mode
-					TWBR = (unsigned char)(TWI_BITRATE);	// Setup TWI Bitrate
-					TWSR = (unsigned char)(TWI_PRESCALE);	// Setup TWI Prescaler
-					break;
-		default	 :	// Slave Mode
+		case 0   :	// Slave Mode
 					TWBR = (unsigned char)(TWI_BITRATE);	// Setup TWI Bitrate
 					TWSR = (unsigned char)(TWI_PRESCALE);	// Setup TWI Prescaler
 					TWCR = (1<<TWEA) | (1<<TWEN);			// Enable TWI Bus and Acknowledge to TWI_ADDR or general call
+					break;
+		default	 :	// Master mode
+					TWBR = (unsigned char)(TWI_BITRATE);	// Setup TWI Bitrate
+					TWSR = (unsigned char)(TWI_PRESCALE);	// Setup TWI Prescaler
 					break;
 	}
 	
@@ -50,7 +50,18 @@ unsigned char twi_init(unsigned char operation)
 }
 
 //	+---------------------------------------------------------------+
-//	|					I2C start transmission						|
+//	|						TWI status byte							|
+//	+---------------------------------------------------------------+
+unsigned char twi_status(void)
+{
+	// Return message initialization
+	// Bit(7:3) TWS7 - TWS3
+	// Bit(2:2) TWWC
+	return (0xF8 & TWSR) | (0x02 & (TWCR>>1));
+}
+
+//	+---------------------------------------------------------------+
+//	|					TWI start transmission						|
 //	+---------------------------------------------------------------+
 unsigned char twi_start(void)
 {
@@ -72,14 +83,6 @@ unsigned char twi_start(void)
 void twi_stop(void)
 {
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);	// Stop a TWI transmission
-}
-
-unsigned char twi_status(void)
-{
-	// Return message initialization
-	// Bit(7:3) TWS7 - TWS3
-	// Bit(2:2) TWWC
-	return (0xF8 & TWSR) | (0x02 & (TWCR>>1));
 }
 
 //	+---------------------------------------------------------------+

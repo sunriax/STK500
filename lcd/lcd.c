@@ -92,13 +92,13 @@ void lcd_set(unsigned char data)
 //	+---------------------------------------------------------------+
 //	|					LCD instruction transfer					|
 //	+---------------------------------------------------------------+
-void lcd_cmd(unsigned char data)
+void lcd_cmd(unsigned char instruction)
 {
 	// Select instruction register
 	LCD_PORT_CTRL &= ~(1<<LCD_RS);
 	
-	lcd_set(data);		// Write high nibble to databus
-	lcd_set((data<<4));	// Write low nibble to databus
+	lcd_set(instruction);		// Write high nibble to databus
+	lcd_set((instruction<<4));	// Write low nibble to databus
 	
 	// Wait until instruction is accessed on the LCD
 	_delay_us(LCD_CMD_TIME);
@@ -117,6 +117,19 @@ void lcd_char(unsigned char data)
 	
 	// Wait until data is accessed on the LCD
 	_delay_us(LCD_WRITE_TIME);
+}
+
+//	+---------------------------------------------------------------+
+//	|						LCD string transfer						|
+//	+---------------------------------------------------------------+
+void lcd_string(const unsigned char *data)
+{
+	// Wait until \0 escape char is reached
+	while(*data != LCD_NULL)
+	{
+		lcd_char(*data);	// Send character
+		data++;				// Increment data
+	}
 }
 
 //	+---------------------------------------------------------------+
@@ -153,17 +166,23 @@ void lcd_cursor(unsigned char x, unsigned char y)
 	}
 }
 
+
 //	+---------------------------------------------------------------+
-//	|						LCD string transfer						|
+//	|					LCD save patterns to RAM					|
 //	+---------------------------------------------------------------+
-void lcd_string(const unsigned char *data)
+void lcd_pattern(unsigned char address, const unsigned char *data)
 {
-	// Wait until \0 escape char is reached
-	while(*data != LCD_NULL)
-	{
-		lcd_char(*data);	// Send character
-		data++;				// Increment data
-	}
+	// Check if address is greater than max. allowed address
+	if(address > LCD_CGADDDR_MAX)
+		return;
+
+	lcd_cmd(LCD_CGADDR + (address * 8));	// Setup LCD display CGADDR start address + which character
+	
+	// Write data to LCD display CGRAM
+	for(unsigned char i=0; i < 8; i++)
+		lcd_char(data[i]);
+	
+	lcd_cmd(LCD_DDADDR);					// Setup LCD display DDADDR (HOME position)
 }
 
 //	+---------------------------------------------------------------+
@@ -263,7 +282,7 @@ void lcd_sl2ascii(const signed long data, unsigned char base, unsigned char leng
 //	+---------------------------------------------------------------+
 //	|						LCD double to ASCII						|
 //	+---------------------------------------------------------------+
-void lcd_d2ascii(const double data, unsigned char length, unsigned char prec)
+void lcd_d2ascii(const double data, unsigned char length, unsigned char precision)
 {
 	unsigned char buffer[length + prec + 2];	// ASCII buffer (double width) digits + \0 escape character
 	
@@ -280,22 +299,4 @@ void lcd_d2ascii(const double data, unsigned char length, unsigned char prec)
 	
 	// Write String to LCD
 	lcd_string(buffer);
-}
-
-//	+---------------------------------------------------------------+
-//	|					LCD save patterns to RAM					|
-//	+---------------------------------------------------------------+
-void lcd_pattern(unsigned char address, const unsigned char *data)
-{
-	// Check if address is greater than max. allowed address
-	if(address > LCD_CGADDDR_MAX)
-		return;
-
-	lcd_cmd(LCD_CGADDR + (address * 8));	// Setup LCD display CGADDR start address + which character
-	
-	// Write data to LCD display CGRAM
-	for(unsigned char i=0; i < 8; i++)
-		lcd_char(data[i]);
-	
-	lcd_cmd(LCD_DDADDR);					// Setup LCD display DDADDR (HOME position)
 }

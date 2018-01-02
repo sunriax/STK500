@@ -6,7 +6,7 @@ In this short introduction the basic function of the twi library and their usage
 
 | Name          | Value(s)              | Description                        |
 |---------------|:----------------------|------------------------------------|
-| F_CPU         | System Clock          | Setup the system speed             |
+| F_CPU         | System Clock          | Setup the system clock speed       |
 | F_TWI         | TWI Clock             | .../100000/400000/...              |
 | TWI_PRESCALE  | 0/1/2/3               | Samplerate of UART databit         |
 | TWI_BITRATE   | none                  | Calculation of bitrate             |

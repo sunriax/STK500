@@ -6,7 +6,7 @@ In this short introduction the basic function of the uart library and their usag
 
 | Name          | Value(s)            | Description                        |
 |---------------|:--------------------|------------------------------------|
-| F_CPU         | System Clock        | Setup the system speed             |
+| F_CPU         | System Clock        | Setup the system clock speed       |
 | BAUD          | Baudrate            | 9600 / 19200 / ...                 |
 | U2XEN         |                     | Samplerate of UART databit         |
 | UARTRXCIE     |                     | Receiver Interrupt processing      |

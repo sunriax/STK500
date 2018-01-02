@@ -6,13 +6,14 @@ In this short introduction the basic function of the adc library and their usage
 
 | Name                | Value(s) | Description                                                 |
 |---------------------|:---------|-------------------------------------------------------------|
-| ADC_REF             | 0x00     | AREF/                                                       |
+| ADC_REF             | 0x00     | AREF/
+                                                        |
 |                     | 0x01     | AVCC                                                        |
 |                     | 0x03     | 2.56V                                                       |
 | ADC_CHANNEL_MODE    | 0x00     | 8 unipolar channels                                         |
 |                     | 0x01     | 2 differential channels with amplification                  |
-|                     | 0x02     | 7 differential channels through ADC1 (negativ)              |
-|                     | 0x03     | 5 differential channels through ADC2 (negativ)              |
+|                     | 0x02     | 7 differential channels through ADC1 (negative)              |
+|                     | 0x03     | 5 differential channels through ADC2 (negative)              |
 | ADC_MODE            | 0x00     | Single transformation                                       |
 |                     | 0x01     | Permanent transformation                                    |
 | ADC_DATA_SHIFT      | 0x00     | Right shift ( MSB -> Bit 10/ LSB -> Bit 0                   |
@@ -27,7 +28,7 @@ In this short introduction the basic function of the adc library and their usage
 |                     | 0x07     | F_ADC = F_CPU / 128                                         |
 | ADC_NOISE_REDUCTION | none     | For reducing Noise during conversion (0=disabled/1=enabled) |
 | ADC_TRIGGER_SOURCE  | 0x00     | Free running mode                                           |
-|                     | 0x01     | Analog comarator mode                                       |
+|                     | 0x01     | Analog comparator mode                                       |
 |                     | 0x02     | External Interrupt (0)                                      |
 |                     | 0x03     | Timer 0 compare                                             |
 |                     | 0x04     | Timer 0 overflow                                            |
@@ -92,7 +93,7 @@ unsigned int adc_average(unsigned char size)
 #### Function Return
 | Return       | Status                       |
 |-------------:|:----------------------------:|
-| unsigned int | builded average from samples |
+| unsigned int | built average from samples |
 
 ---
 

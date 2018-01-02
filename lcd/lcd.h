@@ -72,11 +72,7 @@
 #endif
 
 // LCD display parameters
-#ifndef LCD_ROWS		// LCD display rows (1 - 4)
-	#define LCD_ROWS 2
-#endif
-
-#ifndef LCD_COLUMNS		// LCD display columns/row (1 - 40)
+#ifndef LCD_COLUMNS		// LCD display columns/row (1 - 20)
 	#define LCD_COLUMNS 8
 #endif
 
@@ -91,32 +87,24 @@
 	#define LCD_STARTUP_TIME 10
 #endif
 
-#ifndef LCD_RETURN_TIME	// LCD return home time in ms
-	#define LCD_RETURN_TIME 2
-#endif
+// #ifndef LCD_RETURN_TIME	// LCD return home time in ms
+//	#define LCD_RETURN_TIME 2
+// #endif
 
 #ifndef LCD_ENTRY_TIME	// LCD entry mode time in us
 	#define LCD_ENTRY_TIME 37
 #endif
 
-#ifndef LCD_DISPLAY_TIME	// LCD display time in us
-	#define LCD_DISPLAY_TIME 37
-#endif
+// #ifndef LCD_DISPLAY_TIME	// LCD display time in us
+//	#define LCD_DISPLAY_TIME 37
+// #endif
 
-#ifndef LCD_SHIFT_TIME		// LCD shift time in us
-	#define LCD_SHIFT_TIME 37
-#endif
+// #ifndef LCD_SHIFT_TIME	// LCD shift time in us
+// 	#define LCD_SHIFT_TIME 37
+// #endif
 
 #ifndef LCD_FUNCTION_TIME	// LCD function time in us
 	#define LCD_FUNCTION_TIME 37
-#endif
-
-#ifndef LCD_CGADDR_TIME		// LCD CGADDR time in us
-	#define LCD_CGADDR_TIME 37
-#endif
-
-#ifndef LCD_DDADDR_TIME		// LCD DDADDR time in us
-	#define LCD_DDADDR_TIME 37
 #endif
 
 #ifndef LCD_WRITE_TIME		// LCD WRITE time in us
@@ -195,15 +183,15 @@ void lcd_init(void);
 void lcd_disable(void);
 void lcd_clock(void);
 void lcd_set(unsigned char data);
-void lcd_cmd(unsigned char data);
+void lcd_cmd(unsigned char instruction);
 void lcd_char(unsigned char data);
+void lcd_string(const unsigned char *data);
 void lcd_clear(void);
 void lcd_home(void);
 void lcd_cursor(unsigned char x, unsigned char y);
-void lcd_string(const unsigned char *data);
+void lcd_pattern(unsigned char address, const unsigned char *data);
 void lcd_ul2ascii(unsigned long data, unsigned char base, unsigned char length);
 void lcd_sl2ascii(const signed long data, unsigned char base, unsigned char length);
-void lcd_d2ascii(const double data, unsigned char length, unsigned char prec);
-void lcd_pattern(unsigned char address, const unsigned char *data);
+void lcd_d2ascii(const double data, unsigned char length, unsigned char precision);
 
 #endif /* LCD_H_ */

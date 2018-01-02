@@ -18,6 +18,7 @@ In this short introduction the basic function of the twi library and their usage
 | TWI_READ      | 0x01                  | Read command                       |
 
 **ATmega16 TWI status codes (!!!Do not change!!!)**
+
 | Name                          | Value(s) | Description                                   |
 |-------------------------------|:---------|-----------------------------------------------|
 | TWI_STATUS_START              | 0x08     | Status after start bit has been sent          |

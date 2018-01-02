@@ -4,5 +4,5 @@ In this short introduction the basic function of the pwm library and their usage
 
 ## Directives
 
-| Name          | Value(s)              | Description                        |
-|---------------|:----------------------|------------------------------------|
+| Name             | Value(s)            | Description                        |
+|------------------|:--------------------|------------------------------------|

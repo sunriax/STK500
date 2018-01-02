@@ -64,6 +64,10 @@
 	#define ADC_PRESCALER 0x05
 #endif
 
+// #ifndef ADC_NOISE_REDUCTION	// ADC noise reduction enabled
+//	#define ADC_NOISE_REDUCTION
+// #endif
+
 #ifndef ADC_TRIGGER_SOURCE	// ADC trigger source setting
 	// 0x00 -> Free running mode
 	// 0x01 -> Analog comparator
@@ -92,7 +96,7 @@
 
         void adc_init(void);
         void adc_channel(unsigned char channel);
-        void adc_stop(void);
+        void adc_disable(void);
 unsigned int adc_read(void);
 unsigned int adc_average(unsigned char size);
 

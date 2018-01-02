@@ -45,6 +45,19 @@ void lcd_init(void)
 }
 
 //	+---------------------------------------------------------------+
+//	|					LCD disable function						|
+//	+---------------------------------------------------------------+
+void lcd_disable(void)
+{
+	// Disable LCD
+	LCD_DDR_CTRL &= ~((1<<LCD_RS) | (1<<LCD_E));
+	LCD_DDR_DATA &= ~((1<<LCD_DB3) | (1<<LCD_DB2) | (1<<LCD_DB1) | (1<<LCD_DB0));
+	
+	LCD_PORT_CTRL &= ~((1<<LCD_RS) | (1<<LCD_E));
+	LCD_PORT_DATA &= ~((1<<LCD_DB3) | (1<<LCD_DB2) | (1<<LCD_DB1) | (1<<LCD_DB0));
+}
+
+//	+---------------------------------------------------------------+
 //	|						LCD generate clock						|
 //	+---------------------------------------------------------------+
 void lcd_clock(void)

@@ -75,6 +75,7 @@
 #include <avr/io.h>
 
 unsigned char spi_init(unsigned char operation, unsigned char direction, unsigned char polarity, unsigned char spiclock);
+         void spi_disable(void);
          void spi_select(unsigned char mode);
 unsigned char spi_transfer(unsigned char data);
 

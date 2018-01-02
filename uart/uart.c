@@ -87,6 +87,32 @@ void uart_init(unsigned char datasize, unsigned char parity, unsigned char stopb
 	uart_setchar(0x00);		// Transmit a Dummy Byte
 }
 
+//	+---------------------------------------------------------------+
+//	|					UART disable function						|
+//	+---------------------------------------------------------------+
+void uart_disable(void)
+{
+	// Disable UART
+	UCSRB = ~((1<<RXEN) | (1<<TXEN));
+	
+	// Receiver interrupt setup
+	#ifdef UARTRXCIE
+		UCSRB  &= ~(1<<RXCIE);
+	#endif
+
+	// Transmitter interrupt setup
+	#ifdef UARTTXCIE
+		UCSRB  &= ~(1<<TXCIE);
+	#endif
+
+	// Transmitter interrupt setup
+	#ifdef UARTUDRIE
+		#ifndef UARTTXCIE
+			UCSRB  &= ~(1<<UDRIE);
+		#endif
+	#endif
+}
+
 void uart_reset(void)
 {
 	UDR;	// Clear the error flags (by reading UDR)

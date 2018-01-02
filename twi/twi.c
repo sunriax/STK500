@@ -50,6 +50,19 @@ unsigned char twi_init(unsigned char operation)
 }
 
 //	+---------------------------------------------------------------+
+//	|					TWI disable function						|
+//	+---------------------------------------------------------------+
+void twi_disable(void)
+{
+	// Disable TWI
+	TWCR &= ~((1<<TWEA) | (1<<TWEN));
+	
+	#ifdef TWI_TWIE	// Diable TWI interrupt
+		TWCR  &= ~(1<<TWIE);
+	#endif
+}
+
+//	+---------------------------------------------------------------+
 //	|						TWI status byte							|
 //	+---------------------------------------------------------------+
 unsigned char twi_status(void)

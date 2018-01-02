@@ -41,19 +41,19 @@ void adc_init(void)
 }
 
 //	+---------------------------------------------------------------+
+//	|					ADC disable function						|
+//	+---------------------------------------------------------------+
+void adc_disable(void)
+{
+	ADCSRA &= ~(1<<ADEN);	// Disable ADC
+}
+
+//	+---------------------------------------------------------------+
 //	|					ADC channel selection						|
 //	+---------------------------------------------------------------+
 void adc_channel(unsigned char channel)
 {
 	ADMUX = (ADMUX & ~(0x07)) | (0x07 & channel);	// Select ADC Channel
-}
-
-//	+---------------------------------------------------------------+
-//	|					ADC disable function						|
-//	+---------------------------------------------------------------+
-void adc_stop(void)
-{
-	ADCSRA &= ~(1<<ADEN);	// Disable ADC
 }
 
 #ifndef ADC_ADIE
@@ -63,6 +63,12 @@ void adc_stop(void)
 	//	+---------------------------------------------------------------+
 	unsigned int adc_read(void)
 	{
+		#ifdef ADC_NOISE_REDUCTION
+			// Enter ADC noise reduction mode (stop the CPU)
+			MCUCR &= ~((1<<SM2) | (1<<SM1));
+			MCUCR |= (1<<SM0);
+		#endif
+		
 		#if ADC_MODE == 0x01
 			
 			// Wait until ADC interrupt flag is zero
@@ -93,6 +99,12 @@ void adc_stop(void)
 			return ((ADC_HIGH<<8) | ADC_LOW);
 			
 		#endif
+		
+		#ifdef ADC_NOISE_REDUCTION
+			// Exit ADC noise reduction mode (start the CPU)
+			MCUCR &= ~((1<<SM2) | (1<<SM1)) | (1<<SM0));
+		#endif
+		
 	}
 
 	//	+---------------------------------------------------------------+

@@ -51,6 +51,14 @@ unsigned char twi_init(unsigned char operation);
 
 ---
 
+## Disable Function
+
+```c
+void twi_disable(void);
+```
+
+---
+
 ## Transmit start bit
 
 ```c

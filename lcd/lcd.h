@@ -191,9 +191,10 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
+void lcd_init(void);
+void lcd_disable(void);
 void lcd_clock(void);
 void lcd_set(unsigned char data);
-void lcd_init(void);
 void lcd_cmd(unsigned char data);
 void lcd_char(unsigned char data);
 void lcd_clear(void);

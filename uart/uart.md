@@ -43,6 +43,14 @@ void uart_init(unsigned char datasize, unsigned char parity, unsigned char stopb
 
 ---
 
+## Disable Function
+
+```c
+void uart_disable(void);
+```
+
+---
+
 ## Transmit single character
 
 ```c

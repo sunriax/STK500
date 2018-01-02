@@ -60,6 +60,14 @@ unsigned char spi_init(unsigned char operation, unsigned char direction, unsigne
 
 ---
 
+## Disable Function
+
+```c
+void spi_disable(void);
+```
+
+---
+
 ## SPI Slave Select Function
 
 ```c

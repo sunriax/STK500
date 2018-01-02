@@ -72,7 +72,7 @@ unsigned char spi_init(unsigned char operation, unsigned char direction, unsigne
 	
 	// SPI interrupt setup
 	#ifdef SPI_SPIE
-		SPCR  |= (1<<SPE);
+		SPCR  |= (1<<SPIE);
 		sei();
 	#endif
 	
@@ -82,6 +82,22 @@ unsigned char spi_init(unsigned char operation, unsigned char direction, unsigne
 	if(SPSR & (1<<SPIF))
 		return 0xFF;	// Return master abort
 	return SPCR;		// Return SPI control register status
+}
+
+//	+---------------------------------------------------------------+
+//	|					SPI disable function						|
+//	+---------------------------------------------------------------+
+void spi_disable(void)
+{
+	// Disable SPI
+	SPCR &= ~(1<<SPE);
+	SPI_DDR  &= ~((1<<SPI_SCK) | (1<<SPI_MOSI) | (1<<SPI_MISO) | (1<<SPI_SS));
+	SPI_PORT &= ~((1<<SPI_SCK) | (1<<SPI_MOSI) | (1<<SPI_MISO) | (1<<SPI_SS));
+	
+	#ifdef SPI_SPIE	// Disable SPI interrupt
+		SPCR  &= ~(1<<SPIE);
+		sei();
+	#endif
 }
 
 //	+---------------------------------------------------------------+

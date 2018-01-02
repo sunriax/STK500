@@ -60,6 +60,7 @@
 #include <avr/interrupt.h>
 
 void uart_init(unsigned char datasize, unsigned char parity, unsigned char stopbits);
+void uart_disable(void);
 void uart_reset(void);
 
 #ifndef UARTTXCIE

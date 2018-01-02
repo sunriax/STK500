@@ -88,6 +88,7 @@
 #include <avr/interrupt.h>
 
 unsigned char twi_init(unsigned char operation);
+         void twi_disable(void);
 unsigned char twi_status(void);
 unsigned char twi_start(void);
          void twi_stop(void);

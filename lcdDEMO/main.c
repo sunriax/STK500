@@ -13,9 +13,12 @@
  * -------------------------------------
  */
 
+#define F_CPU 12000000UL
+
 // Include standard libraries
-#include <avr/io.h>
 #include <stdlib.h>
+#include <avr/io.h>
+#include <util/delay.h>
 
 // Include hardware abstraction library
 #include "../lcd/lcd.h"
@@ -93,7 +96,21 @@ int main(void)
 	// Endless loop
     while (1) 
     {
-
+		/*
+		for(unsigned char i=0; i < 31; i++)
+		{
+			if(i < 8)
+			{
+				lcd_cmd(LCD_SHIFT | LCD_SHIFT_DISPLAY | LCD_SHIFT_RIGHT);
+				_delay_ms(1000);
+			}
+			else
+			{
+				lcd_cmd(LCD_SHIFT | LCD_SHIFT_DISPLAY | LCD_SHIFT_RIGHT);
+			}
+			
+		}
+		*/
     }	// End of loop
 }	// End of main
 

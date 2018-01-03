@@ -19,9 +19,14 @@
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
+	pwm_init(0x05);
+	// pwm_square(1);
+	// pwm_sawtooth(1);
+	// pwm_triangle(1);
+	pwm_ramp(1, 4);
+	
+	while (1)
+	{
+	}
 }
 

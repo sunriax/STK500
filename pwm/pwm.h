@@ -47,15 +47,35 @@
 // #endif
 
 // PWM standard PIN definition
-#ifndef PWM_PIN_OC0
+#ifndef PWM_PIN_OC0		// Setup PIN OC0
 	#define PWM_PIN_OC0 PB3
 #endif
 
-#ifndef PWM_OCIE			// Compare match interrupt enable
+#ifndef PWM_SQUARE		// Enable PWM square function
+	#define PWM_SQUARE
+#endif
+
+#ifndef PWM_SAWTOOTH	// Enable PWM square function
+	#define PWM_SAWTOOTH
+#endif
+
+#ifndef PWM_TRIANGLE	// Enable PWM square function
+	#define PWM_TRIANGLE
+#endif
+
+#ifndef PWM_RAMP		// Enable PWM square function
+	#define PWM_RAMP
+#endif
+
+#ifndef PWM_SINE		// Enable PWM square function
+	#define PWM_SINE
+#endif
+
+#ifndef PWM_OCIE		// Compare match interrupt enable
 	#define PWM_OCIE
 #endif
 
-#ifndef PWM_TOIE			// Overflow interrupt enable
+#ifndef PWM_TOIE		// Overflow interrupt enable
 	#define PWM_TOIE
 #endif
 
@@ -65,10 +85,25 @@
 
 void pwm_init(unsigned char prescaler);
 void pwm_disable(void);
-void pwm_square(unsigned char match);
-void pwm_sawtooth(unsigned char increase);
-void pwm_triangle(unsigned char step);
-void pwm_ramp(unsigned char increase, unsigned char decrease);
-void pwm_sine(void);
+
+#ifdef PWM_SQUARE
+	void pwm_square(unsigned char match);
+#endif
+
+#ifdef PWM_SAWTOOTH
+	void pwm_sawtooth(unsigned char increase);
+#endif
+
+#ifdef PWM_TRIANGLE
+	void pwm_triangle(unsigned char step);
+#endif
+
+#ifdef PWM_RAMP
+	void pwm_ramp(unsigned char increase, unsigned char decrease);
+#endif
+
+#ifdef PWM_SAWTOOTH
+	void pwm_sine(void);
+#endif
 
 #endif /* PWM_H_ */

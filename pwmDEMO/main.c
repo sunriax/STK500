@@ -20,7 +20,7 @@
 
 int main(void)
 {
-	pwm_init(0x03);
+	pwm_init(0x01);
 	// pwm_square(1);
 	// pwm_sawtooth(1);
 	// pwm_triangle(1);

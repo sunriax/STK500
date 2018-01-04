@@ -51,10 +51,6 @@
 	#define PWM_PIN_OC0 PB3
 #endif
 
-#ifndef PWM_SINE_SAMPLES	// Quarter (1/4 curve) sine samples 
-	#define PWM_SINE_SAMPLES 90
-#endif
-
 #ifndef PWM_OCIE			// Compare match interrupt enable
 	#define PWM_OCIE
 #endif
@@ -64,23 +60,15 @@
 #endif
 
 #include <limits.h>
-#include <math.h>
 #include <avr/io.h>
 #include <avr/interrupt.h>
 
-         void pwm_init(unsigned char prescaler);
-         void pwm_disable(void);
-         void pwm_square(unsigned char match);
-         void pwm_sawtooth(unsigned char increase);
-         void pwm_triangle(unsigned char step);
-         void pwm_ramp(unsigned char increase, unsigned char decrease);
-unsigned char pwm_sine_table(unsigned char *table, unsigned char length);
-         void pwm_sine(unsigned char *table, unsigned char size);
-
-volatile unsigned char PWM_SIGNAL_MODE;
-volatile unsigned char PWM_SAWTOOTH_INCREASE;
-volatile unsigned char PWM_TRIANGLE_STEP;
-volatile unsigned char PWM_RAMP_UP;
-volatile unsigned char PWM_RAMP_DOWN;
+void pwm_init(unsigned char prescaler);
+void pwm_disable(void);
+void pwm_square(unsigned char match);
+void pwm_sawtooth(unsigned char increase);
+void pwm_triangle(unsigned char step);
+void pwm_ramp(unsigned char increase, unsigned char decrease);
+void pwm_sine(void);
 
 #endif /* PWM_H_ */

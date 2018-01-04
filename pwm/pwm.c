@@ -15,6 +15,19 @@
 
 #include "pwm.h"
 
+// Global PWM variables
+volatile unsigned char PWM_SIGNAL_MODE;
+volatile unsigned char PWM_SAWTOOTH_INCREASE;
+volatile unsigned char PWM_TRIANGLE_STEP;
+volatile unsigned char PWM_RAMP_UP;
+volatile unsigned char PWM_RAMP_DOWN;
+volatile unsigned char PWM_SINE_VALUE;
+volatile unsigned char PWM_SINE_QUADRANT;
+   const unsigned char PWM_SINE_TABLE[15] = { 0, 13, 26, 39, 52, 63, 75, 85, 94, 103, 110, 116, 121, 124, 126 };
+
+//	for(unsigned char i=0; i < 90; i++)
+//		table[i] = 127 * sin((M_PI * i) / 180);
+
 #ifdef PWM_OCIE
 	ISR(TIMER0_COMP_vect)
 	{
@@ -79,9 +92,60 @@
 							OCR0 -= PWM_RAMP_DOWN;
 						}
 						break;
+			// Sine
+			case 6	:	switch(PWM_SINE_QUADRANT)
+						{
+							case 1	:	if(PWM_SINE_VALUE < sizeof(PWM_SINE_TABLE))
+										{
+											PWM_SINE_VALUE++;
+											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										else
+										{
+											PWM_SINE_QUADRANT = 2;
+											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										break;
+							case 2	:	if(PWM_SINE_VALUE > CHAR_MIN)
+										{
+											PWM_SINE_VALUE--;
+											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										else
+										{
+											PWM_SINE_QUADRANT = 3;
+											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										break;
+							case 3	:	if(PWM_SINE_VALUE < sizeof(PWM_SINE_TABLE))
+										{
+											PWM_SINE_VALUE++;
+											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										else
+										{
+											PWM_SINE_QUADRANT = 4;
+											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										break;
+							case 4	:	if(PWM_SINE_VALUE > CHAR_MIN)
+										{
+											PWM_SINE_VALUE--;
+											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										else
+										{
+											PWM_SINE_QUADRANT = 1;
+											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+										}
+										break;
+							default	:	PWM_SINE_QUADRANT = 1;
+										PWM_SINE_VALUE = 0;
+										break;
+						}
+						break;
 			default	:	break;
 		}
-		
 	}
 #endif
 
@@ -215,36 +279,27 @@ void pwm_ramp(unsigned char increase, unsigned char decrease)
 	sei();
 }
 
-unsigned char pwm_sine_table(unsigned char *table, unsigned char length)
-{
-	if(length > 45)
-		return 0xFF;
-	
-	for(unsigned char i=0; i < 90; i += (90/length))
-	{
-		table[i] = 127 * sin((M_PI * i) / 180);
-	}
-	
-	return 0x00;
-}
-
-void pwm_sine(unsigned char *table, unsigned char size)
+void pwm_sine(void)
 {	
 	PWM_SIGNAL_MODE = 6;
 	
 	TCCR0 &= ~((1<<WGM00) | (1<<COM01) | (1<<COM00) | (1<<WGM01));
 	
 	#ifdef PWM_PIN_OC0
-		TCCR0 |= (1<<WGM00) | (1<<COM01);
+		TCCR0 |= (1<<WGM01) | (1<<WGM00) | (1<<COM01);
 	#else
-		TCCR0 |= (1<<WGM00);
+		TCCR0 |= (1<<WGM01) | (1<<WGM00);
 	#endif
 	
-	TIMSK |= (1<<OCIE0);
-	TIMSK &= ~(1<<TOIE0);
+	TIMSK |= (1<<OCIE0) | (1<<TOIE0);
+	// TIMSK &= ~(1<<TOIE0);
 
 	sei();
-	
+}
+
+
+
+
 	// Available Modes
 	// -----------------------------------------------------------
 	// 0: Normal PWM(50:50) frequency adjustable through prescaler
@@ -261,4 +316,3 @@ void pwm_sine(unsigned char *table, unsigned char size)
 		default :	TCCR0 = (1<<COM00);											break;	// Normal, OC0 toggle
 	}
 	*/
-}

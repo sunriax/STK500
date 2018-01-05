@@ -32,7 +32,7 @@ int main(void)
 	PORTC = 0x00;	// Set PORTC to LOW
 	
 	// ADC Initialization
-	adc_init();		// Initialize A/D Converter
+	adc_init();
  
     while (1) 
     {
@@ -73,7 +73,5 @@ int main(void)
 		{
 			PORTC = 0xF0;	// Display that nothing is selected
 		}
-		
-	}
-}
-
+    }	// End of loop
+}	// End of main

@@ -33,7 +33,7 @@
 	#define SPI_DDR DDRB
 #endif
 
-#ifndef SPI_PORT	// Port where SPI interface 
+#ifndef SPI_PORT	// Port for SPI setup
 	#define SPI_PORT PORTB
 #endif
 

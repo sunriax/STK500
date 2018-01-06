@@ -63,16 +63,8 @@
 	#define PWM_SQUARE
 #endif
 
-#ifndef PWM_SAWTOOTH	// Enable PWM square function
-	#define PWM_SAWTOOTH
-#endif
-
-#ifndef PWM_TRIANGLE	// Enable PWM square function
-	#define PWM_TRIANGLE
-#endif
-
-#ifndef PWM_RAMP		// Enable PWM square function
-	#define PWM_RAMP
+#ifndef PWM_LINEAR		// Enable PWM linear functions
+	#define PWM_LINEAR
 #endif
 
 #ifndef PWM_SINE		// Enable PWM square function
@@ -105,19 +97,11 @@ void pwm_disable(void);
 	void pwm_square(unsigned char match);
 #endif
 
-#ifdef PWM_SAWTOOTH
-	void pwm_sawtooth(unsigned char increase);
+#ifdef PWM_LINEAR
+	void pwm_linear(unsigned char type, unsigned int step);
 #endif
 
-#ifdef PWM_TRIANGLE
-	void pwm_triangle(unsigned char step);
-#endif
-
-#ifdef PWM_RAMP
-	void pwm_ramp(unsigned char increase, unsigned char decrease);
-#endif
-
-#ifdef PWM_SAWTOOTH
+#ifdef PWM_SINE
 	void pwm_sine(unsigned char hold);
 #endif
 

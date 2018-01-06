@@ -36,20 +36,22 @@ int main(void)
 	{	
 		// If S0 on Megacard / PA0 on STK500 pressed (not pulled!!!)
 		if(!(PINA & (1<<PA0)))
-			pwm_square(0);		// Setup square signal
+			pwm_square(150);					// Setup square signal
 		
-		// If S1 on Megacard / PA0 on STK500 pressed (not pulled!!!)
+		// If S1 on Megacard / PA1 on STK500 pressed (not pulled!!!)
 		else if(!(PINA & (1<<PA1)))
-			pwm_sawtooth(20);	// Setup sawtooth signal
+			pwm_linear(1, 20);					// Setup rectangle signal
 			
-		// If S2 on Megacard / PA0 on STK500 pressed (not pulled!!!)
+		// If S2 on Megacard / PA2 on STK500 pressed (not pulled!!!)
 		else if(!(PINA & (1<<PA2)))
-			pwm_ramp(5,10);		// Setup ramp signal
-			//pwm_triangle(20);	// Setup triangle signal
+			//pwm_linear(2, 2);					// Setup sawtooth signal
+			//pwm_linear(2, ((2<<8) | 2));		// Setup triangle signal
+			pwm_linear(2, ((4<<8) | 2));		// Setup ramp signal
+			
 		
-		// If S3 on Megacard / PA0 on STK500 pressed (not pulled!!!)
+		// If S3 on Megacard / PA3 on STK500 pressed (not pulled!!!)
 		else if(!(PINA & (1<<PA3)))
-			pwm_sine(1);		// Setup sine signal
+			pwm_sine(1);						// Setup sine signal
     }	// End of loop
 }	// End of main
 

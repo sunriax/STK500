@@ -20,21 +20,14 @@
 // Global variables needed for PWM  (!!! Do not change !!!)
 volatile unsigned char PWM_SIGNAL_MODE;
 
-#ifdef PWM_SAWTOOTH
-	volatile unsigned char PWM_SAWTOOTH_INCREASE;
-#endif
-
-#ifdef PWM_TRIANGLE
-	volatile unsigned char PWM_TRIANGLE_STEP;
-#endif
-
-#ifdef PWM_RAMP
+#ifdef PWM_LINEAR
+	volatile unsigned char PWM_RAMP;
 	volatile unsigned char PWM_RAMP_UP;
 	volatile unsigned char PWM_RAMP_DOWN;
-	volatile unsigned char PWM_SINE_VALUE;
 #endif
 
 #ifdef PWM_SINE
+	volatile unsigned char PWM_SINE_VALUE;
 	volatile unsigned char PWM_SINE_HOLD;
 	volatile unsigned char PWM_SINE_COUNT;
 	volatile unsigned char PWM_SINE_QUADRANT;
@@ -69,201 +62,192 @@ volatile unsigned char PWM_SIGNAL_MODE;
 		
 		#endif
 		
-		// Select signal generation mode
-		switch(PWM_SIGNAL_MODE)
+		// Create rectangle signal
+		if(PWM_SIGNAL_MODE == 1)
 		{
-		#ifdef PWM_SAWTOOTH		// Enable sawtooth if defined
-			case 1	:	// If OCR0 is not equal to 0 and OCR0 is greater than 255 - INCREASE
-						if((OCR0 != UCHAR_MAX) && (OCR0 > (UCHAR_MAX - PWM_SAWTOOTH_INCREASE)))
-							OCR0 = UCHAR_MAX;				// Set OCR0 to max. value 255
-						else
-							OCR0 += PWM_SAWTOOTH_INCREASE;	// increase OCR0 with initialized level
-						break;
-		#endif
-		#ifdef PWM_TRIANGLE		// Enable triangle if defined
-			case 2	:	// If OCR0 is greater than 255 - STEP
-						if((OCR0 > (CHAR_MAX - PWM_TRIANGLE_STEP)))
-						{
-							OCR0 = CHAR_MAX;				// Set OCR0 to max. value 255
-							PWM_SIGNAL_MODE = 3;			// Start decrease mode
-						}
-						else
-						{
-							OCR0 += PWM_TRIANGLE_STEP;		// increase OCR0 with initialized level
-						}
-						break;
-			case 3	:	// If OCR0 is lower than 0 + STEP
-						if((OCR0 < (CHAR_MIN + PWM_TRIANGLE_STEP)))
-						{
-							OCR0 = CHAR_MIN;				// Set OCR0 to min. value 0
-							PWM_SIGNAL_MODE = 2;			// Start increase mode
-						}
-						else
-						{
-							OCR0 -= PWM_TRIANGLE_STEP;		// decrease OCR0 with initialized level
-						}
-						break;
-		#endif
-		#ifdef PWM_RAMP			// Enable ramp if defined
-			case 4	:	// If OCR0 is greater than 255 - UP
-						if((OCR0 > (CHAR_MAX - PWM_RAMP_UP)))
-						{
-							OCR0 = CHAR_MAX;				// Set OCR0 to max. value 255 
-							PWM_SIGNAL_MODE = 5;			// Start decrease mode
-						}
-						else
-						{
-							OCR0 += PWM_RAMP_UP;			// increase OCR0 with initialized level
-						}
-						break;
-			case 5	:	// If OCR0 is lower than 0 + STEP
-						if((OCR0 < (CHAR_MIN + PWM_RAMP_DOWN)))
-						{
-							OCR0 = CHAR_MIN;				// Set OCR0 to min. value 0
-							PWM_SIGNAL_MODE = 4;			// Start increase mode
-						}
-						else
-						{
-							OCR0 -= PWM_RAMP_DOWN;			// decrease OCR0 with initialized level
-						}
-						break;
-		#endif
-		#ifdef PWM_SINE	// Enable sine if defined
-			case 6	:	// Switch to active quadrant
-						switch(PWM_SINE_QUADRANT)
-						{
-							// Quadrant 1 (0° - 90°)
-							case 1	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
-										if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
-										{
-											// Set OCR0 to 127 + TABLE[VALUE]
-											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
-											
-											// VALUE is not equal 0 AND COUNT lower than HOLD(function setup)
-											if((PWM_SINE_VALUE != 0) && PWM_SINE_COUNT < PWM_SINE_HOLD)
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_VALUE++;		// Increase TABLE VALUE (next sine value)
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-										}
-										else
-										{
-											// COUNT lower than HOLD(function setup)
-											if(PWM_SINE_COUNT < PWM_SINE_HOLD)
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_QUADRANT = 2;	// Select 2 quadrant
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-											
-											// Set OCR0 to 127 + TABLE[VALUE] (max. value)
-											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
-										}
-										break;
-							// Quadrant 2 (90° - 180°)
-							case 2	:	// If VALUE greater than 0
-										if(PWM_SINE_VALUE > CHAR_MIN)
-										{
-											// Set OCR0 to 127 + TABLE[VALUE] (max. value)
-											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
-											
-											// COUNT lower than HOLD(function setup)
-											if(PWM_SINE_COUNT < PWM_SINE_HOLD)
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_VALUE--;		// Increase TABLE VALUE (next sine value)
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-										}
-										else
-										{
-											PWM_SINE_QUADRANT = 3;		// Select 3 quadrant
-											
-											// Set OCR0 to 127 + TABLE[VALUE] (min. value)
-											OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
-										}
-										break;
-							// Quadrant 3 (180° - 270°)
-							case 3	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
-										if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
-										{
-											// Set OCR0 to 127 - TABLE[VALUE] (min. value)
-											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
-											
-											// VALUE is not equal 0 AND COUNT lower than HOLD(function setup)
-											if((PWM_SINE_VALUE != 0) && (PWM_SINE_COUNT < PWM_SINE_HOLD))
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_VALUE++;		// Increase TABLE VALUE (next sine value)
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-											
-										}
-										else
-										{
-											// COUNT lower than HOLD(function setup)
-											if(PWM_SINE_COUNT < PWM_SINE_HOLD)
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_QUADRANT = 4;	// Select 4 quadrant
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-											
-											// Set OCR0 to 127 - TABLE[VALUE] (min. value)
-											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
-										}
-										break;
-							// Quadrant 4 (270° - 0°)
-							case 4	:	// If VALUE greater than 0
-										if(PWM_SINE_VALUE > CHAR_MIN)
-										{
-											// Set OCR0 to 127 - TABLE[VALUE] (max. value)
-											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
-											
-											// COUNT lower than HOLD(function setup)
-											if(PWM_SINE_COUNT < PWM_SINE_HOLD)
-											{
-												PWM_SINE_COUNT++;		// Increase COUNT
-											}
-											else
-											{
-												PWM_SINE_VALUE--;		// Increase TABLE VALUE (next sine value)
-												PWM_SINE_COUNT = 0;		// Reset COUNT
-											}
-											
-										}
-										else
-										{
-											PWM_SINE_QUADRANT = 1;		// Select 1 quadrant
-											
-											// Set OCR0 to 127 - TABLE[VALUE] (min. value)
-											OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
-										}
-										break;
-							default	:	PWM_SINE_QUADRANT = 1;	// Setup Quadrant 1
-										PWM_SINE_VALUE = 0;		// Reset value counter
-										PWM_SINE_COUNT = 0;		// Reset hold counter
-										break;
-						}
-						break;
-		#endif
-			default	:	break;
+			OCR0 = PWM_RAMP_UP;
+		}
+		// Create linear (sawtooth/triangle/ramp)
+		else if(PWM_SIGNAL_MODE == 2)
+		{
+			// If RAMP is 0x00 (increase) and RAMP_UP is greater than 0
+			if((PWM_RAMP == 0x00) && (PWM_RAMP_UP > 0))
+			{
+				// If OCR0 is greater than 255 - UP
+				if(OCR0 > (CHAR_MAX - PWM_RAMP_UP))
+				{
+					// Check if OCR0 is already 255
+					if(OCR0 == CHAR_MAX)
+						OCR0 = CHAR_MIN;	// Set OCR0 to min. value 0
+					else
+						OCR0 = CHAR_MAX;	// Set OCR0 to max. value 255
+					
+					// Check if RAMP_DOWN is greater than 0
+					if(PWM_RAMP_DOWN > 0)
+						PWM_RAMP = 0xFF;	// Set RAMP to 0xFF (decrease)
+				}
+				else
+				{
+					OCR0 += PWM_RAMP_UP;	// increase OCR0 with initialized level
+				}
+			}
+			// If RAMP is 0xFF (decrease) and RAMP_DOWN is greater than 0
+			else if((PWM_RAMP == 0xFF) && (PWM_RAMP_DOWN > 0))
+			{
+				// If OCR0 is lower than 0 + RAMP_DOWN
+				if((OCR0 < (CHAR_MIN + PWM_RAMP_DOWN)))
+				{
+					OCR0 = CHAR_MIN;		// Set OCR0 to min. value 0
+					
+					// Check if RAMP_UP is greater than 0 (not necessary)
+					if(PWM_RAMP_UP > 0)
+						PWM_RAMP = 0x00;	// Set RAMP to 0x00 (increase)
+				}
+				else
+				{
+					OCR0 -= PWM_RAMP_DOWN;	// decrease OCR0 with initialized level
+				}
+			}
+			else
+			{
+				PWM_RAMP = 0x00;			// Reset RAMP to 0x00 (increase)
+			}
+		}
+		// Create sine signal
+		else if(PWM_SIGNAL_MODE == 3)
+		{
+			// Switch to active quadrant
+			switch(PWM_SINE_QUADRANT)
+			{
+				// Quadrant 1 (0° - 90°)
+				case 1	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
+							if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
+							{
+								// Set OCR0 to 127 + TABLE[VALUE]
+								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+				
+								// VALUE is not equal 0 AND COUNT lower than HOLD(function setup)
+								if((PWM_SINE_VALUE != 0) && PWM_SINE_COUNT < PWM_SINE_HOLD)
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_VALUE++;		// Increase TABLE VALUE (next sine value)
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+							}
+							else
+							{
+								// COUNT lower than HOLD(function setup)
+								if(PWM_SINE_COUNT < PWM_SINE_HOLD)
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_QUADRANT = 2;	// Select 2 quadrant
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+				
+								// Set OCR0 to 127 + TABLE[VALUE] (max. value)
+								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+							}
+							break;
+				// Quadrant 2 (90° - 180°)
+				case 2	:	// If VALUE greater than 0
+							if(PWM_SINE_VALUE > CHAR_MIN)
+							{
+								// Set OCR0 to 127 + TABLE[VALUE] (max. value)
+								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+				
+								// COUNT lower than HOLD(function setup)
+								if(PWM_SINE_COUNT < PWM_SINE_HOLD)
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_VALUE--;		// Increase TABLE VALUE (next sine value)
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+							}
+							else
+							{
+								PWM_SINE_QUADRANT = 3;		// Select 3 quadrant
+				
+								// Set OCR0 to 127 + TABLE[VALUE] (min. value)
+								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
+							}
+							break;
+				// Quadrant 3 (180° - 270°)
+				case 3	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
+							if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
+							{
+								// Set OCR0 to 127 - TABLE[VALUE] (min. value)
+								OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+				
+								// VALUE is not equal 0 AND COUNT lower than HOLD(function setup)
+								if((PWM_SINE_VALUE != 0) && (PWM_SINE_COUNT < PWM_SINE_HOLD))
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_VALUE++;		// Increase TABLE VALUE (next sine value)
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+				
+							}
+							else
+							{
+								// COUNT lower than HOLD(function setup)
+								if(PWM_SINE_COUNT < PWM_SINE_HOLD)
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_QUADRANT = 4;	// Select 4 quadrant
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+				
+								// Set OCR0 to 127 - TABLE[VALUE] (min. value)
+								OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+							}
+							break;
+				// Quadrant 4 (270° - 0°)
+				case 4	:	// If VALUE greater than 0
+							if(PWM_SINE_VALUE > CHAR_MIN)
+							{
+								// Set OCR0 to 127 - TABLE[VALUE] (max. value)
+								OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+				
+								// COUNT lower than HOLD(function setup)
+								if(PWM_SINE_COUNT < PWM_SINE_HOLD)
+								{
+									PWM_SINE_COUNT++;		// Increase COUNT
+								}
+								else
+								{
+									PWM_SINE_VALUE--;		// Increase TABLE VALUE (next sine value)
+									PWM_SINE_COUNT = 0;		// Reset COUNT
+								}
+				
+							}
+							else
+							{
+								PWM_SINE_QUADRANT = 1;		// Select 1 quadrant
+				
+								// Set OCR0 to 127 - TABLE[VALUE] (min. value)
+								OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
+							}
+							break;
+				default	:	PWM_SINE_QUADRANT = 1;	// Setup Quadrant 1
+							PWM_SINE_VALUE = 0;		// Reset value counter
+							PWM_SINE_COUNT = 0;		// Reset hold counter
+				break;
+			}	
 		}
 	}
 #endif
@@ -364,15 +348,25 @@ void pwm_disable(void)
 	}
 #endif
 
-#ifdef PWM_SAWTOOTH
+#ifdef PWM_LINEAR
 
 	//	+---------------------------------------------------------------+
-	//	|					Setup sawtooth generation					|
+	//	|				Setup linear signal generation					|
 	//	+---------------------------------------------------------------+
-	void pwm_sawtooth(unsigned char increase)
+	void pwm_linear(unsigned char type, unsigned int step)
 	{
-		PWM_SIGNAL_MODE = 1;					// Setup signal mode
-		PWM_SAWTOOTH_INCREASE = increase;		// Setup value for increasing OCR0
+		// Switch to signal that should be generated
+		switch(type)
+		{
+			case 1	:	PWM_SIGNAL_MODE = 1;	break;	// Generate rectangle signal
+			case 2	:	PWM_SIGNAL_MODE = 2;	break;	// Generate sawtooth signal
+			case 3	:	PWM_SIGNAL_MODE = 2;	break;	// Generate triangle signal
+			case 4	:	PWM_SIGNAL_MODE = 2;	break;	// Generate ramp signal
+			default	:	return;
+		}
+		
+		PWM_RAMP_UP = (step);		// Setup value for increasing OCR0
+		PWM_RAMP_DOWN = (step>>8);	// Setup value for decreasing OCR0, zero (0) for rectangle/sawtooth
 		
 		// Reset counter setup
 		TCCR0 &= ~((1<<WGM00) | (1<<COM01) | (1<<COM00) | (1<<WGM01));
@@ -388,59 +382,7 @@ void pwm_disable(void)
 
 		sei();	// Enable global interrupts
 	}
-#endif
 
-#ifdef PWM_TRIANGLE
-
-	//	+---------------------------------------------------------------+
-	//	|					Setup triangle generation					|
-	//	+---------------------------------------------------------------+
-	void pwm_triangle(unsigned char step)
-	{
-		PWM_SIGNAL_MODE = 2;					// Setup signal mode
-		PWM_TRIANGLE_STEP = step;				// Setup value for increasing OCR0
-		
-		// Reset counter setup
-		TCCR0 &= ~((1<<WGM00) | (1<<COM01) | (1<<COM00) | (1<<WGM01));
-		
-		#ifdef PWM_PIN_OC0
-			TCCR0 |= (1<<WGM00) | (1<<COM01);	// Setup Timer 0 PWM (phase correct) + PIN OC0 toggling
-		#else
-			TCCR0 |= (1<<WGM00);				// Setup Timer 0 PWM (phase correct)
-		#endif
-		
-		TIMSK |= (1<<OCIE0);		// Setup Timer compare interrupt
-		TIMSK &= ~(1<<TOIE0);		// Disable Timer overflow interrupt
-
-		sei();	// Enable global interrupts
-	}
-#endif
-
-#ifdef PWM_RAMP
-
-	//	+---------------------------------------------------------------+
-	//	|					Setup ramp generation						|
-	//	+---------------------------------------------------------------+
-	void pwm_ramp(unsigned char increase, unsigned char decrease)
-	{
-		PWM_SIGNAL_MODE = 4;					// Setup signal mode
-		PWM_RAMP_UP = increase;					// Setup value for increasing OCR0
-		PWM_RAMP_DOWN = decrease;				// Setup value for decreasing OCR0
-		
-		// Reset counter setup
-		TCCR0 &= ~((1<<WGM00) | (1<<COM01) | (1<<COM00) | (1<<WGM01));
-		
-		#ifdef PWM_PIN_OC0
-			TCCR0 |= (1<<WGM00) | (1<<COM01);	// Setup Timer 0 PWM (phase correct) + PIN OC0 toggling
-		#else
-			TCCR0 |= (1<<WGM00);				// Setup Timer 0 PWM (phase correct)
-		#endif
-		
-		TIMSK |= (1<<OCIE0);		// Setup Timer compare interrupt
-		TIMSK &= ~(1<<TOIE0);		// Disable Timer overflow interrupt
-
-		sei();	// Enable global interrupts
-	}
 #endif
 
 #ifdef PWM_SINE
@@ -450,7 +392,7 @@ void pwm_disable(void)
 	//	+---------------------------------------------------------------+
 	void pwm_sine(unsigned char hold)
 	{	
-		PWM_SIGNAL_MODE = 6;								// Setup signal mode
+		PWM_SIGNAL_MODE = 3;								// Setup signal mode
 		PWM_SINE_HOLD = hold;								// Setup how long the sine value should been hold on PIN
 		
 		// Reset counter setup

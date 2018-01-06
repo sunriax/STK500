@@ -15,7 +15,6 @@ install:
   - avr-gcc --version
   - make --version
 
-
 # Execute Commands bevor Build
 before_script:
   - chmod 0777 scripts/CI/makefile2unix.sh
@@ -35,27 +34,63 @@ before_script:
 
 # Run Build Script
 script:
+	# SPI library
   - cd spi/Debug
   - mkdir src
   - make
   - cd ../../
+	# SPI Demo project
+  - cd spiDEMO/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  # UART library
   - cd uart/Debug
   - mkdir src
   - make
   - cd ../../
+	# UART Demo project
+  - cd uartDEMO/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  # TWI library
   - cd twi/Debug
   - mkdir src
   - make
   - cd ../../
+	# TWI Demo project
+  - cd twiDEMO/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  # PWM library
   - cd pwm/Debug
   - mkdir src
   - make
   - cd ../../
+	# PWM Demo project
+  - cd pwmDEMO/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  # ADC library
   - cd adc/Debug
   - mkdir src
   - make
   - cd ../../
+	# ADC Demo project
+  - cd adcDEMO/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  # LCD library
   - cd lcd/Debug
+  - mkdir src
+  - make
+  - cd ../../
+	# LCD Demo project
+  - cd lcdDEMO/Debug
   - mkdir src
   - make
   - cd ../../

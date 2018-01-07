@@ -370,7 +370,7 @@ void pwm_disable(void)
 		
 		// Reset counter setup
 		TCCR0 &= ~((1<<WGM00) | (1<<COM01) | (1<<COM00) | (1<<WGM01));
-		
+
 		#ifdef PWM_PIN_OC0
 			TCCR0 |= (1<<WGM00) | (1<<COM01);	// Setup Timer 0 PWM (phase correct) + PIN OC0 toggling
 		#else

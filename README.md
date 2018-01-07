@@ -11,8 +11,8 @@ The STK500 repository is a set of library's used in the [module](https://github.
    * Atmel ATmega16
    * Atmel ATmega32
 1. Development Hardware
-   * STK500 (Atmel)
-   * Megacard (HTL-Rankweil)
+   * STK500 ([Atmel](http://www.microchip.com/webdoc/stk500/index.html))
+   * Megacard ([HTL-Rankweil](http://www.htl-rankweil.at/))
 1. Additional Hardware
    * LCD Module ([HD44780](https://www.pollin.de/productdownloads/D120622D.PDF))
 1. Development Software

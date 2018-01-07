@@ -102,7 +102,7 @@ void pwm_disable(void)
 _(see calculation for match initialisation)_
 
 ```c
-void pwm_init(unsigned char match)
+void pwm_square(unsigned char match)
 ```
 
 #### prescaler
@@ -116,7 +116,7 @@ void pwm_init(unsigned char match)
 _(see calculation for step initialisation)_
 
 ```c
-void pwm_init(unsigned char type, unsigned int step)
+void pwm_linear(unsigned char type, unsigned int step)
 ```
 
 #### type

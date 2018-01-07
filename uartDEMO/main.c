@@ -30,10 +30,10 @@ int main(void)
 	// !!! Actual there is no abstraction for the PORT setup !!!
 	// !!! It will be integrated in future developments      !!!
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		DDRA = 0x00;	// Set PORTA to input
-		DDRC = 0xFF;	// Set PORTC to output
-		PORTA = 0x0F;	// Set PULLUP at PORTA (3:0)
-		PORTC = 0x00;	// Set PORTC to LOW
+	DDRA = 0x00;	// Set PORTA to input
+	DDRC = 0xFF;	// Set PORTC to output
+	PORTA = 0x0F;	// Set PULLUP at PORTA (3:0)
+	PORTC = 0x00;	// Set PORTC to LOW
 	
 	// UART Initialization
 	// Databits: 8

@@ -19,17 +19,17 @@ install:
 before_script:
   - chmod 0777 scripts/CI/makefile2unix.sh
   - scripts/CI/makefile2unix.sh uart/
-  - scripts/CI/makefile2unix.sh uartDEMO/
+  #- scripts/CI/makefile2unix.sh uartDEMO/
   - scripts/CI/makefile2unix.sh spi/
-  - scripts/CI/makefile2unix.sh spiDEMO/
+  #- scripts/CI/makefile2unix.sh spiDEMO/
   - scripts/CI/makefile2unix.sh twi/
-  - scripts/CI/makefile2unix.sh twiDEMO/
+  #- scripts/CI/makefile2unix.sh twiDEMO/
   - scripts/CI/makefile2unix.sh adc/
-  - scripts/CI/makefile2unix.sh adcDEMO/
+  #- scripts/CI/makefile2unix.sh adcDEMO/
   - scripts/CI/makefile2unix.sh pwm/
-  - scripts/CI/makefile2unix.sh pwmDEMO/
+  #- scripts/CI/makefile2unix.sh pwmDEMO/
   - scripts/CI/makefile2unix.sh lcd/
-  - scripts/CI/makefile2unix.sh lcdDEMO/
+  #- scripts/CI/makefile2unix.sh lcdDEMO/
 
 
 # Run Build Script
@@ -38,15 +38,7 @@ script:
   - mkdir src
   - make
   - cd ../../
-  - cd spiDEMO/Debug
-  - mkdir src
-  - make
-  - cd ../../
   - cd uart/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd uartDEMO/Debug
   - mkdir src
   - make
   - cd ../../
@@ -54,15 +46,7 @@ script:
   - mkdir src
   - make
   - cd ../../
-  - cd twiDEMO/Debug
-  - mkdir src
-  - make
-  - cd ../../
   - cd pwm/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd pwmDEMO/Debug
   - mkdir src
   - make
   - cd ../../
@@ -70,15 +54,7 @@ script:
   - mkdir src
   - make
   - cd ../../
-  - cd adcDEMO/Debug
-  - mkdir src
-  - make
-  - cd ../../
   - cd lcd/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd lcdDEMO/Debug
   - mkdir src
   - make
   - cd ../../

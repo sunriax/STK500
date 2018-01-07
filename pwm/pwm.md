@@ -32,7 +32,7 @@ f_{RECTANGLE}=\frac{F_{CPU}}{255*PRESCALER*\frac{256}{STEP*2}}
 
 ### Sawtooth Generation
 
-![Sawtooth](http://latex.codecogs.com/gif.latex?f_%7BRECTANGLE%7D%3D%5Cfrac%7BF_%7BCPU%7D%7D%7B510*PRESCALER*%5Cfrac%7B256%7D%7BSTEP*2%7D%7D)
+![Sawtooth](http://latex.codecogs.com/gif.latex?f_%7BSAWTOOTH%7D%3D%5Cfrac%7BF_%7BCPU%7D%7D%7B510*PRESCALER*%5Cfrac%7B256%7D%7BSTEP*2%7D%7D)
 
 ```LATEX
 f_{SAWTOOTH}=\frac{F_{CPU}}{255*PRESCALER*STEP}
@@ -40,7 +40,7 @@ f_{SAWTOOTH}=\frac{F_{CPU}}{255*PRESCALER*STEP}
 
 ### Triangle Generation
 
-![Triangle](http://latex.codecogs.com/gif.latex?f_%7BRECTANGLE%7D%3D%5Cfrac%7BF_%7BCPU%7D%7D%7B255*PRESCALER*%5Cfrac%7B256%7D%7BSTEP%7D%7D)
+![Triangle](http://latex.codecogs.com/gif.latex?f_%7BTRIANGLE%7D%3D%5Cfrac%7BF_%7BCPU%7D%7D%7B255*PRESCALER*%5Cfrac%7B256%7D%7BSTEP%7D%7D)
 
 ```LATEX
 f_{TRIANGLE}=\frac{F_{CPU}}{255*PRESCALER*\frac{256}{STEP}}

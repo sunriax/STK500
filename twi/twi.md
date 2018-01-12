@@ -9,7 +9,7 @@ In this short introduction the basic function of the twi library and their usage
 | F_CPU         | System Clock          | Setup the system clock speed       |
 | F_TWI         | TWI Clock             | .../100000/400000/...              |
 | TWI_PRESCALE  | 0/1/2/3               | Samplerate of UART databit         |
-| TWI_BITRATE   | none                  | Calculation of bitrate             |
+| TWI_BITRATE   | defined/undefined     | Calculation of bitrate             |
 | TWI_ADDRESS   | unsigned char (1-126) | Controller Slave address           |
 | TWI_BROADCAST | 0=not/1=listen        | Accept general calls               |
 | TWI_ACK       | 0x01                  | Acknowledge command                |

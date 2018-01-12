@@ -8,10 +8,10 @@ In this short introduction the basic function of the uart library and their usag
 |---------------|:--------------------|------------------------------------|
 | F_CPU         | System Clock        | Setup the system clock speed       |
 | BAUD          | Baudrate            | 9600 / 19200 / ...                 |
-| U2XEN         |                     | Samplerate of UART databit         |
-| UARTRXCIE     |                     | Receiver Interrupt processing      |
-| UARTTXCIE     |                     | Transmitter Interrupt processing   |
-| UARTUDRIE     |                     | Data register interrupt processing |
+| U2XEN         | defined/undefined   | Samplerate of UART databit         |
+| UARTRXCIE     | defined/undefined   | Receiver Interrupt processing      |
+| UARTTXCIE     | defined/undefined   | Transmitter Interrupt processing   |
+| UARTUDRIE     | defined/undefined   | Data register interrupt processing |
 
 ## Initial Function
 

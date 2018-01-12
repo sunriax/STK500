@@ -37,8 +37,8 @@ Every project has a demo application as side car (e.g. uart has uartDEMO). This 
 
 This files are valid for all repositories at the SUNriaX Github!
 * [Readme](https://github.com/sunriax/manual/blob/master/README.md)
-* [License](https://github.com/sunriax/manual/blob/master/license.md)
-* [Warranty](https://github.com/sunriax/manual/blob/master/warranty.md)
+* [License](https://github.com/sunriax/manual/blob/master/LICENSE.md)
+* [Warranty](https://github.com/sunriax/manual/blob/master/WARRANTY.md)
 
 ## Additional Information
 

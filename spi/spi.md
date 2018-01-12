@@ -6,8 +6,8 @@ In this short introduction the basic function of the spi library and their usage
 
 | Name          | Value(s)            | Type | Master | Slave | Description                  |
 |---------------|:--------------------|:----:|:------:|:-----:|------------------------------|
-| SPI2X         | none                |      |        |       | SPI double speed mode        |
-| SPI_SPIE      | none                |      |        |       | SPI interrupt control enable |
+| SPI2X         | defined/undefined   |      |        |       | SPI double speed mode        |
+| SPI_SPIE      | defined/undefined   |      |        |       | SPI interrupt control enable |
 | SPI_DDR       | DDRA/B/C/D/...      | REG  |        |       | SPI Data direction register  |
 | SPI_PORT      | PORTA/B/C/D/...     | REG  |        |       | SPI Port                     |
 | SPI_SS        | PA/B/C/D/...(1..x)  | I/O  |   O    |   I   | SPI Slave select pin         |

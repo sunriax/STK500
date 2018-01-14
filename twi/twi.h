@@ -92,7 +92,8 @@ unsigned char twi_init(unsigned char operation);
 unsigned char twi_status(void);
 unsigned char twi_start(void);
          void twi_stop(void);
-unsigned char twi_address(unsigned char address);
+unsigned char twi_address(unsigned char address, unsigned char operation);
+unsigned char twi_set(unsigned char data);
 unsigned char twi_get(unsigned char *data);
 
 #endif /* TWI_H_ */

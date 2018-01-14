@@ -101,17 +101,17 @@ void twi_stop(void)
 //	+---------------------------------------------------------------+
 //	|				TWI address + read/write data					|
 //	+---------------------------------------------------------------+
-unsigned char twi_address(unsigned char address)
+unsigned char twi_address(unsigned char address, unsigned char operation)
 {
-	TWDR = address;					// Write data to data register
-	TWCR = (1<<TWINT) | (1<<TWEN);	// Transmit addressbyte
+	TWDR = (address<<1) | (0x01 & operation);	// Write data to data register
+	TWCR = (1<<TWINT) | (1<<TWEN);				// Transmit addressbyte + operation
 	
 	// Check if transmission done
 	while(!(TWCR & (1<<TWINT)))
 		asm volatile("NOP");
 	
 	// ADDRESS + WRITE operation
-	if((address & 0x01) == TWI_WRITE)
+	if((operation & 0x01) == TWI_WRITE)
 	{
 		if(((TWSR & 0xF8) != TWI_STATUS_ADDRESS_WRITE_ACK) || ((TWSR & 0xF8) != TWI_STATUS_ADDRESS_WRITE_NACK))
 			return 0xFF;
@@ -130,8 +130,8 @@ unsigned char twi_address(unsigned char address)
 //	+---------------------------------------------------------------+
 unsigned char twi_set(unsigned char data)
 {
-	TWDR = data;					// Write data to data register
-	TWCR = (1<<TWINT) | (1<<TWEN);	// Transmit databyte
+	TWDR = data;								// Write data to data register
+	TWCR = (1<<TWINT) | (1<<TWEA) | (1<<TWEN);	// Transmit databyte + ACK
 	
 	// Check if transmission done
 	while(!(TWCR & (1<<TWINT)))
@@ -150,10 +150,10 @@ unsigned char twi_get(unsigned char *data)
 {
 	// Check if ACK should be sent
 	if(*data == TWI_ACK)
-		TWCR = (1<<TWINT) | (1<<TWEA) | (1<<TWEN);
+		TWCR = (1<<TWINT) | (1<<TWEA) | (1<<TWEN);	// Transmit databyte + ACK
 	// Check if NACK should be sent
 	else if(*data == TWI_NACK)
-		TWCR = (1<<TWINT) | (1<<TWEN);
+		TWCR = (1<<TWINT) | (1<<TWEN);				// Transmit databyte + NACK
 	else
 		return 0xFF;
 	

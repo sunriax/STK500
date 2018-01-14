@@ -84,10 +84,10 @@ unsigned char twi_start(void)
 	while(!(TWCR & (1<<TWINT)))
 		asm volatile("NOP");
 	
-	// Check if an error occured
-	if(((TWSR & 0xF8) != TWI_STATUS_START) || ((TWSR & 0xF8) != TWI_STATUS_REPEATED_START))
-		return 0xFF;	// Start failure
-	return 0x00;		// Start successfully
+	// Check if an error occurred
+	if(((TWSR & 0xF8) == TWI_STATUS_START) || ((TWSR & 0xF8) == TWI_STATUS_REPEATED_START))
+		return 0x00;	// Start successfully
+	return 0xFF;	// Start failure
 }
 
 //	+---------------------------------------------------------------+
@@ -104,7 +104,7 @@ void twi_stop(void)
 unsigned char twi_address(unsigned char address, unsigned char operation)
 {
 	TWDR = (address<<1) | (0x01 & operation);	// Write data to data register
-	TWCR = (1<<TWINT) | (1<<TWEN);				// Transmit addressbyte + operation
+	TWCR = (1<<TWINT) | (1<<TWEN);				// Transmit address byte + operation
 	
 	// Check if transmission done
 	while(!(TWCR & (1<<TWINT)))
@@ -113,16 +113,16 @@ unsigned char twi_address(unsigned char address, unsigned char operation)
 	// ADDRESS + WRITE operation
 	if((operation & 0x01) == TWI_WRITE)
 	{
-		if(((TWSR & 0xF8) != TWI_STATUS_ADDRESS_WRITE_ACK) || ((TWSR & 0xF8) != TWI_STATUS_ADDRESS_WRITE_NACK))
-			return 0xFF;
+		if(((TWSR & 0xF8) == TWI_STATUS_ADDRESS_WRITE_ACK) || ((TWSR & 0xF8) == TWI_STATUS_ADDRESS_WRITE_NACK))
+			return 0x00;
 	}
 	// ADDRESS + READ operation
 	else
 	{
-		if(((TWSR & 0xF8) != TWI_STATUS_ADDRESS_READ_ACK) || ((TWSR & 0xF8) != TWI_STATUS_ADDRESS_READ_NACK))
-			return 0xFF;
+		if(((TWSR & 0xF8) == TWI_STATUS_ADDRESS_READ_ACK) || ((TWSR & 0xF8) == TWI_STATUS_ADDRESS_READ_NACK))
+			return 0x00;
 	}
-	return 0x00;
+	return 0xFF;
 }
 
 //	+---------------------------------------------------------------+
@@ -138,9 +138,9 @@ unsigned char twi_set(unsigned char data)
 		asm volatile("NOP");
 	
 	// Check if an error occurred
-	if(((TWSR & 0xF8) != TWI_STATUS_DATA_WRITE_ACK) || ((TWSR & 0xF8) != TWI_STATUS_DATA_WRITE_NACK))
-		return 0xFF;
-	return 0x00;
+	if(((TWSR & 0xF8) == TWI_STATUS_DATA_WRITE_ACK) || ((TWSR & 0xF8) == TWI_STATUS_DATA_WRITE_NACK))
+		return 0x00;
+	return 0xFF;
 }
 
 //	+---------------------------------------------------------------+
@@ -165,8 +165,8 @@ unsigned char twi_get(unsigned char *data)
 	*data = TWDR;
 	
 	// Check if an error occurred
-	if(((TWSR & 0xF8) != TWI_STATUS_DATA_READ_ACK) || ((TWSR & 0xF8) != TWI_STATUS_DATA_READ_NACK))
-		return 0xFF;
-	return 0x00;
+	if(((TWSR & 0xF8) == TWI_STATUS_DATA_READ_ACK) || ((TWSR & 0xF8) == TWI_STATUS_DATA_READ_NACK))
+		return 0x00;
+	return 0xFF;
 }
 

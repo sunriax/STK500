@@ -14,7 +14,7 @@
  */
 
 // Systemclock
-#define F_CPU 16000000UL
+#define F_CPU 12000000UL
 
 // Include standard libraries
 #include <avr/io.h>
@@ -68,4 +68,3 @@ int main(void)
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }	// End of loop
 }	// End of main
-

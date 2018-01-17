@@ -18,6 +18,8 @@ install:
 # Execute Commands bevor Build
 before_script:
   - chmod 0777 scripts/CI/makefile2unix.sh
+  - scripts/CI/makefile2unix.sh port/
+  #- scripts/CI/makefile2unix.sh portDEMO/
   - scripts/CI/makefile2unix.sh uart/
   #- scripts/CI/makefile2unix.sh uartDEMO/
   - scripts/CI/makefile2unix.sh spi/
@@ -34,6 +36,10 @@ before_script:
 
 # Run Build Script
 script:
+  - cd port/Debug
+  - mkdir src
+  - make
+  - cd ../../
   - cd spi/Debug
   - mkdir src
   - make

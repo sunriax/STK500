@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+..\port\port.c
+
 ..\spi\spi.c
 
 main.c

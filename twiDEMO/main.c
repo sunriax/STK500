@@ -27,7 +27,6 @@
 // !!! It will be uploaded in the future		     !!!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
 int main(void)
 {
     

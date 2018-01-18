@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+..\port\port.c
+
 ..\pwm\pwm.c
 
 main.c

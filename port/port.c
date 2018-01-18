@@ -152,7 +152,25 @@ unsigned char pin_read(unsigned char pin, unsigned char bit, unsigned char logic
 								if(!(PIND & (bit)))
 								return 0xFF;
 							}
-							break;	
+							break;
+		default	:	return 0xF0;	break;	// If wrong pin data check fails
+	}
+	return 0x00; // Port check done
+}
+
+//	+---------------------------------------------------------------+
+//	|						PIN status								|
+//	+---------------------------------------------------------------+
+unsigned char pin_status(unsigned char pin)
+{
+	// Switch to selected port
+	switch(pin)
+	{
+		// If port bit(s) is/are set to input (LOW) pullup values will take effect
+		case 0b00000001	:	return PINA;	break;	// Return PINA status
+		case 0b00000010	:	return PINB;	break;	// Return PINB status
+		case 0b00000100	:	return PINC;	break;	// Return PINC status
+		case 0b00001000	:	return PIND;	break;	// Return PIND status
 		default	:	return 0xF0;	break;	// If wrong pin data check fails
 	}
 	return 0x00; // Port check done

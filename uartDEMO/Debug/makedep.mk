@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+..\port\port.c
+
 ..\uart\uart.c
 
 main.c

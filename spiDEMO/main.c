@@ -13,6 +13,10 @@
  * -------------------------------------
  */
 
+// PORT settings
+#define OUTPUT 0b00000100	// Set output PORT (PORTC)
+#define INPUT 0b00000001	// Set input PORT (PORTA)
+
 // Systemclock
 #define F_CPU 16000000UL
 
@@ -20,19 +24,14 @@
 #include <avr/io.h>
 
 // Include hardware abstraction library
+#include "../port/port.h"
 #include "../spi/spi.h"
 
 int main(void)
 {	
 	// Port setup
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// !!! Actual there is no abstraction for the PORT setup !!!
-	// !!! It will be integrated in future developments      !!!
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	DDRA = 0x00;	// Set PORTA to input
-	DDRC = 0xFF;	// Set PORTC to output
-	PORTA = 0x0F;	// Set PULLUP at PORTA (3:0)
-	PORTC = 0x00;	// Set PORTC to LOW
+	port_init(OUTPUT, 0xFF, 0x00);	// Initialize PORT4 (PORTC) as OUTPUT
+	port_init(INPUT, 0x00, 0x0F);	// Initialize PORT1 (PORTA) as INPUT with pullup @ BIT(3:0)
 	
 	// SPI Initialization
 	// SPI mode:      Master
@@ -50,7 +49,9 @@ int main(void)
 		// of the switches. If the connection between MOSI and MISO
 		// is removed the status LEDs should all be HIGH (active)
 		// because of the pullup on MISO!!!
-		PORTC = spi_transfer(~(((PINA<<4) & 0xF0) | (PINA & 0x0F)));
+		unsigned char data = spi_transfer(~((((pin_status(INPUT))<<4) & 0xF0) | ((pin_status(INPUT)) & 0x0F)));
+		
+		port_write(OUTPUT, data, 0);	// Write received data to output
     }	// End of loop
 }	// End of main
 

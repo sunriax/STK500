@@ -22,5 +22,6 @@ unsigned char port_init(unsigned char port, unsigned char direction, unsigned ch
 unsigned char port_disable(unsigned char port);
 unsigned char port_write(unsigned char port, unsigned char data, unsigned char logic);
 unsigned char pin_read(unsigned char pin, unsigned char bit, unsigned char logic);
+unsigned char pin_status(unsigned char pin);
 
 #endif /* PORT_H_ */

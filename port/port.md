@@ -133,6 +133,27 @@ unsigned char pin_read(unsigned char pin, unsigned char bit, unsigned char logic
 
 ---
 
+## Pin Status Function
+
+```c
+unsigned char pin_status(unsigned char pin);
+```
+
+#### pin
+| Value(s)   | Function | Description           |
+|-----------:|:--------:|-----------------------|
+| 0b00000001 | PINA     | Select data form PINA |
+| 0b00000010 | PINB     | Select data form PINB |
+| 0b00000100 | PINC     | Select data form PINC |
+| 0b00001000 | PIND     | Select data form PIND |
+
+
+#### Function Return
+| Return        | Status                  |
+|--------------:|:-----------------------:|
+| unsigned char | Status of select PIN    |
+
+---
 
 
 

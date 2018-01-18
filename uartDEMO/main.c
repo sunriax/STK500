@@ -16,24 +16,23 @@
 // Systemclock
 #define F_CPU 12000000UL
 
+// PORT settings
+#define OUTPUT 0b00000100	// Set output PORT (PORTC)
+#define INPUT 0b00000001	// Set input PORT (PORTA)
+
 // Include standard libraries
 #include <avr/io.h>
 #include <util/delay.h>
 
 // Include hardware abstraction library
+#include "../port/port.h"
 #include "../uart/uart.h"
 
 int main(void)
 {
 	// Port setup
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	// !!! Actual there is no abstraction for the PORT setup !!!
-	// !!! It will be integrated in future developments      !!!
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	DDRA = 0x00;	// Set PORTA to input
-	DDRC = 0xFF;	// Set PORTC to output
-	PORTA = 0x0F;	// Set PULLUP at PORTA (3:0)
-	PORTC = 0x00;	// Set PORTC to LOW
+	port_init(OUTPUT, 0xFF, 0x00);	// Initialize PORT4 (PORTC) as OUTPUT
+	port_init(INPUT, 0x00, 0x0F);	// Initialize PORT1 (PORTA) as INPUT with pullup @ BIT(3:0)
 	
 	// UART Initialization
 	// Databits: 8
@@ -53,14 +52,14 @@ int main(void)
 		// is removed the status LEDs should all be LOW (inactive)!!!
 		
 		// Send databyte (PINA doubled) over UART
-		uart_setchar(~(((PINA<<4) & 0xF0) | (PINA & 0x0F)));
+		uart_setchar(~((((pin_status(INPUT))<<4) & 0xF0) | ((pin_status(INPUT)) & 0x0F)));
 		_delay_ms(2);
 		
 		// Receive databyte over UART
 		uart_getchar(&data, 0x00);
 		_delay_ms(2);
 		
-		PORTC = data;	// Write received data to PORTC
+		port_write(OUTPUT, data, 0);	// Write received data to output
 		
 		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// !!! All other UART functions will be used at the module !!!

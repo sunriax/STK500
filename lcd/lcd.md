@@ -6,8 +6,8 @@ In this short introduction the basic functions of the lcd library and their usag
 
 **Important:** Not every display has got the same connection setup. Please take a look at the display datasheet for more information. The following schematic is only a general mapping to help users understand the connection setup of the library.
 
-![Schematic](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/lcd_schematic.png "Schematic")
-![Breadboard](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/lcd_schematic.png "Breadboard")
+![Schematic](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/lcd_schematic.png =400 "Schematic")
+![Breadboard](https://raw.githubusercontent.com/sunriax/manual/master/docs/image/lcd_breadboard.png =400 "Breadboard")
 
 ## Directives
 

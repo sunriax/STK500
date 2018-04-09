@@ -32,7 +32,8 @@ before_script:
   #- scripts/CI/makefile2unix.sh pwmDEMO/
   - scripts/CI/makefile2unix.sh lcd/
   #- scripts/CI/makefile2unix.sh lcdDEMO/
-
+  - scripts/CI/makefile2unix.sh counter/
+  #- scripts/CI/makefile2unix.sh counterDEMO/
 
 # Run Build Script
 script:
@@ -61,6 +62,10 @@ script:
   - make
   - cd ../../
   - cd lcd/Debug
+  - mkdir src
+  - make
+  - cd ../../
+  - cd counter/Debug
   - mkdir src
   - make
   - cd ../../

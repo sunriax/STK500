@@ -18,28 +18,36 @@
 
 #include <avr/io.h>
 
-#ifndef COUNTER_TOGGLE
-	#define COUNTER_TOGGLE 0	// OC0 disconnected
+#ifndef COUNTER_TOGGLE	// OC0 Port setting
+	// 0x00 -> OC0 disabled
+	// 0x01 -> Toggle OC0
+	// 0x02 -> Clear OC0
+	// 0x03 -> Set OC0
+	#define COUNTER_TOGGLE 0
 #endif
 
-#ifndef COUNTER_MODE
-	#define COUNTER_MODE 1
+#ifndef COUNTER_CTC		// Setup CTC (Clear Timer on Compare match)
+	#define COUNTER_CTC
 #endif
 
-#ifndef COUNTER_IRQ
-	#define COUNTER_IRQ 1
+#ifndef COUNTER_IRQ		// Setup Interrupt Request
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	// !!! Interrupt handler has to be enabled      !!!
+	// !!! through user.                            !!!
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	#define COUNTER_IRQ
 #endif
 
 	unsigned char counter_init(unsigned char prescaler);
-			 void counter_reset(unsigned char data);
+			 void counter_reset(void);
 			 void counter_stop(void);
-			 void counter_start(unsigned char data);
+			 void counter_start(unsigned char prescaler);
 
-#if COUNTER_MODE != 0
+#ifdef COUNTER_CTC
 			 void counter_limit(unsigned char data);
 #endif
 
-#if COUNTER_IRQ == 0
+#ifndef COUNTER_IRQ
 	unsigned char counter_overflow(void);
 #endif
 

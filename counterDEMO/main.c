@@ -31,6 +31,9 @@
 int main(void)
 {
 
+	counter_init(0x01);
+	counter_limit(100);
+
 	while (1)
 	{
 		

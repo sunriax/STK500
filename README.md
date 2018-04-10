@@ -33,20 +33,24 @@ Every project has a demo application as side car (e.g. uart has uartDEMO). This 
 * [SPI](./spi/spi.md)
 * [TWI](./twi/twi.md)
 * [LCD](./lcd/lcd.md)
+* [COUNTER](./counter/counter.md)
+
 
 ## Compatibility
 
 In the following table functions which are compatible with the function in the first row are listed.
 
-| Function | adc | lcd | port | pwm | spi | twi | uart |
-|---------:|:---:|:---:|:----:|:---:|:---:|:---:|:----:|
-| adc      |     | +   | +    | +   | +   | +   | +    | 
-| lcd      | +   |     | +    | +   | +   | +   | +    |
-| port     | +   | +   |      | +   | +   | +   | +    |
-| pwm      | +   | +   | +    |     | +   | +   | +    |
-| spi      | +   | +   | +    | +   |     | +   | +    |
-| twi      | +   | +   | +    | +   | +   |     | +    |
-| uart     | +   | +   | +    | +   | +   | +   |      |
+| Function | adc | counter | lcd | port | pwm | spi | twi | uart |
+|---------:|:---:|:-------:|:---:|:----:|:---:|:---:|:---:|:----:|
+| adc      |     | +       | +   | +    | +   | +   | +   | +    |
+| counter  |     |         | +   | +    | +   | +   | +   | +    |
+| lcd      | +   | +       |     | +    | +   | +   | +   | +    |
+| port     | +   | +       | +   |      | +   | +   | +   | +    |
+| pwm      | +   | +       | +   | +    |     | +   | +   | +    |
+| spi      | +   | +       | +   | +    | +   |     | +   | +    |
+| twi      | +   | +       | +   | +    | +   | +   |     | +    |
+| uart     | +   | +       | +   | +    | +   | +   | +   |      |
+
 
 (At the moment not all functions are tested in combination, so if there is any issue please feel free to start an issue)
 

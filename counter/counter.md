@@ -6,7 +6,7 @@ In this short introduction the basic functions of the counter library and their 
 
 ### Timer overflow setup
 
-![Overflow](http://latex.codecogs.com/gif.download?t_%7BOverflow%7D%3D%5Cfrac%7B256*PRESCALER%7D%7BF_%7BCPU%7D%7D)
+![Overflow](http://latex.codecogs.com/gif.latex?t_%7BOverflow%7D%3D%5Cfrac%7B256*PRESCALER%7D%7BF_%7BCPU%7D%7D)
 
 ```LATEX
 t_{Overflow}=\frac{256*PRESCALER}{F_{CPU}}
@@ -14,7 +14,7 @@ t_{Overflow}=\frac{256*PRESCALER}{F_{CPU}}
 
 ### Timer compare match setup
 
-![Compare](http://latex.codecogs.com/gif.download?t_%7BCompare%7D%3D%5Cfrac%7B%281+OCR%29*PRESCALER%7D%7BF_%7BCPU%7D%7D)
+![Compare](http://latex.codecogs.com/gif.latex?t_%7BCompare%7D%3D%5Cfrac%7B%281+OCR%29*PRESCALER%7D%7BF_%7BCPU%7D%7D)
 
 ```LATEX
 t_{Compare}=\frac{(1+OCR)*PRESCALER}{F_{CPU}}

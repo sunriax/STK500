@@ -17,6 +17,7 @@
 #define COUNTER_H_
 
 #include <avr/io.h>
+#include <avr/interrupt.h>
 
 #ifndef COUNTER_TOGGLE	// OC0 Port setting
 	// 0x00 -> OC0 disabled

@@ -120,7 +120,8 @@ void counter_stop(void)
 			// If Timer compare match interrupt flag is set
 			if(TIFR & (1<<OCF0))
 			{
-				return 0xFF;	// Return true
+				TIFR |= (1<<OCF0);	// Reset interrupt flag
+				return 0xFF;		// Return true
 			}
 			return 0x00;	// Return false
 		
@@ -129,7 +130,8 @@ void counter_stop(void)
 			// If Timer overflow interrupt flag is set
 			if(TIFR & (1<<TOV0))
 			{
-				return 0xFF;	// Return true
+				TIFR |= (1<<TOV0);	// Reset interrupt flag
+				return 0xFF;		// Return true
 			}
 			return 0x00;	// Return false
 		

@@ -15,11 +15,6 @@
 
 // PORT settings
 #define OUTPUT 0b00000100	// Set output PORT (PORTC)
-#define INPUT 0b00000001	// Set input PORT (PORTA)
-#define S0 (1<<0)			// Set input PIN0 (PIN A0)
-#define S1 (1<<1)			// Set input PIN1 (PIN A1)
-#define S2 (1<<2)			// Set input PIN2 (PIN A2)
-#define S3 (1<<3)			// Set input PIN3 (PIN A3)
 
 // Include standard libraries
 #include <avr/io.h>
@@ -28,15 +23,32 @@
 #include "../port/port.h"
 #include "../counter/counter.h"
 
+volatile unsigned char counter;
+
+ISR(TIMER0_COMP_vect)
+{
+	counter++;
+	port_write(OUTPUT, counter, 0);
+}
+
 int main(void)
 {
 
+	port_init(OUTPUT, 0xFF, 0);
+
 	counter_init(0x01);
-	counter_limit(100);
+	counter_limit(200);
 
 	while (1)
 	{
-		
+		// If interrupt handler is disabled
+		/*
+		if(counter_overflow() == 0xFF)
+		{
+			counter++;
+			port_write(OUTPUT, counter, 0);
+		}
+		*/
 	}
 }
 

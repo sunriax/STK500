@@ -40,12 +40,14 @@ unsigned char counter_init(unsigned char prescaler)
 		
 		#ifdef COUNTER_IRQ	// Check if IRQ is enabled
 			TIMSK |= (1<<OCIE0);	// Enable compare match overflow interrupt
+			sei();					// Interrupts global freigeben
 		#endif
 		
 	#else
 	
 		#ifdef COUNTER_IRQ	// Check if IRQ is enabled
 			TIMSK |= (1<<TOIE0);	// Enable timer overflow interrupt
+			sei();					// Interrupts global freigeben
 		#endif
 	
 	#endif
@@ -61,6 +63,8 @@ unsigned char counter_init(unsigned char prescaler)
 	#elif COUNTER_TOGGLE == 3
 		TCCR0 |= (1<<COM01) | (1<<COM00);	// Set OC0
 	#endif
+	
+	COUNTER_PRESCALER = (0x07 & TCCR0);		// Save prescaler status
 	
 	return TCCR0;
 }
@@ -79,6 +83,8 @@ void counter_reset(void)
 //	+---------------------------------------------------------------+
 void counter_start(unsigned char prescaler)
 {
+	// counter_stop();	// Uncomment only if necessary!
+	
 	// If prescaler is not equal zero
 	if(prescaler != 0)
 		TCCR0 |= (0x07 & prescaler);			// Start timer with new prescaler
@@ -91,8 +97,7 @@ void counter_start(unsigned char prescaler)
 //	+---------------------------------------------------------------+
 void counter_stop(void)
 {
-	COUNTER_PRESCALER = (0x07 & TCCR0);	// Save last prescaler status
-	TCCR0 &= ~(0x07);					// Stop timer
+	TCCR0 &= ~(0x07);			// Stop timer
 }
 
 

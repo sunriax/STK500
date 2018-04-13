@@ -43,10 +43,10 @@ In the following table functions which are compatible with the function in the f
 | Function | adc | counter | lcd | port | pwm | spi | twi | uart |
 |---------:|:---:|:-------:|:---:|:----:|:---:|:---:|:---:|:----:|
 | adc      |     | +       | +   | +    | +   | +   | +   | +    |
-| counter  |     |         | +   | +    | +   | +   | +   | +    |
+| counter  | +   |         | +   | +    | -   | +   | +   | +    |
 | lcd      | +   | +       |     | +    | +   | +   | +   | +    |
 | port     | +   | +       | +   |      | +   | +   | +   | +    |
-| pwm      | +   | +       | +   | +    |     | +   | +   | +    |
+| pwm      | +   | -       | +   | +    |     | +   | +   | +    |
 | spi      | +   | +       | +   | +    | +   |     | +   | +    |
 | twi      | +   | +       | +   | +    | +   | +   |     | +    |
 | uart     | +   | +       | +   | +    | +   | +   | +   |      |

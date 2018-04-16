@@ -28,8 +28,8 @@
 #include "../port/port.h"
 #include "../counter/counter.h"
 
+// Global variable for counting
 volatile unsigned char counter;
-extern unsigned char COUNTER_PRESCALER;
 
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!! Interrupt Service Routine for TIMER0 compare match !!!

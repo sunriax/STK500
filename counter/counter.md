@@ -26,7 +26,7 @@ t_{Compare}=\frac{(1+OCR)*PRESCALER}{F_{CPU}}
 |----------------|:----------------------|------------------------------------------------------------|
 | COUNTER_TOGGLE | 0x00 - 0x03           | Setup PORT toggle mode (none, toggle, clear, set)          |
 | COUNTER_CTC    | defined/undefined     | Enable CTC mode (defined)/Enable overflow mode (undefined) |
-| COUNTER_IRQ    | defined/undefined     | Enable Interrupt handler
+| COUNTER_ISR    | defined/undefined     | Enable Interrupt handler
                                 |
 ## Counter Initialization
 
@@ -35,9 +35,16 @@ unsigned char counter_init(unsigned char prescaler)
 ```
 
 #### presacler
-| Value(s)            | Description               |
-|--------------------:|:-------------------------:|
-| unsigned char (2:0) | Setup prescaler for Timer |
+| Value(s) | Description                       |
+|---------:|:---------------------------------:|
+| 0x00     | no prescaler selected             |
+| 0x01     | F_CPU                             |
+| 0x02     | F_CPU/8                           |
+| 0x03     | F_CPU/64                          |
+| 0x04     | F_CPU/256                         |
+| 0x05     | F_CPU/1024                        |
+| 0x06     | External Clock (T0, falling edge) |
+| 0x07     | External Clock (T0, rising edge)  |
 
 #### Function Return
 | Return | Status                                |
@@ -92,7 +99,7 @@ void counter_limit(unsigned char data)
 
 ## Counter Overflow
 
-(Only works with COUNTER_IRQ undefined)
+(Only works with COUNTER_ISR undefined)
 
 ```c
 unsigned char counter_overflow(void)

@@ -38,16 +38,16 @@ unsigned char counter_init(unsigned char prescaler)
 	
 		TCCR0 |= (1<<WGM01);		// Setup CTC mode
 		
-		#ifdef COUNTER_IRQ	// Check if IRQ is enabled
+		#ifdef COUNTER_ISR	// Check if ISR is enabled
 			TIMSK |= (1<<OCIE0);	// Enable compare match overflow interrupt
 			sei();					// Interrupts global freigeben
 		#endif
 		
 	#else
 	
-		#ifdef COUNTER_IRQ	// Check if IRQ is enabled
+		#ifdef COUNTER_ISR	// Check if ISR is enabled
 			TIMSK |= (1<<TOIE0);	// Enable timer overflow interrupt
-			sei();					// Interrupts global freigeben
+			sei();					// Enable interrupts globally
 		#endif
 	
 	#endif
@@ -113,7 +113,7 @@ void counter_stop(void)
 
 #endif
 
-#ifndef COUNTER_IRQ	// Check if interrupt control is disabled
+#ifndef COUNTER_ISR	// Check if interrupt control is disabled
 
 	//	+---------------------------------------------------------------+
 	//	|					COUNTER overflow							|

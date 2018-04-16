@@ -16,9 +16,6 @@
 #ifndef COUNTER_H_
 #define COUNTER_H_
 
-#include <avr/io.h>
-#include <avr/interrupt.h>
-
 #ifndef COUNTER_TOGGLE	// OC0 Port setting
 	// 0x00 -> OC0 disabled
 	// 0x01 -> Toggle OC0
@@ -31,12 +28,12 @@
 	#define COUNTER_CTC
 #endif
 
-#ifndef COUNTER_IRQ		// Setup Interrupt Request
+#ifndef COUNTER_ISR		// Setup Interrupt Request
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// !!! Interrupt handler has to be enabled      !!!
 	// !!! through user.                            !!!
 	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	#define COUNTER_IRQ
+	#define COUNTER_ISR
 #endif
 
 	unsigned char counter_init(unsigned char prescaler);
@@ -48,8 +45,11 @@
 			 void counter_limit(unsigned char data);
 #endif
 
-#ifndef COUNTER_IRQ
+#ifndef COUNTER_ISR
 	unsigned char counter_overflow(void);
 #endif
+
+#include <avr/io.h>
+#include <avr/interrupt.h>
 
 #endif /* COUNTER_H_ */

@@ -26,30 +26,32 @@ The STK500 repository is a set of library's used in the [module](https://github.
 
 Every project has a demo application as side car (e.g. uart has uartDEMO). This demo can be used as quick start guide. We also try to keep our [WIKI](https://wiki.sunriax.at) up-to-date. Also there is a short description at the libraries folder:
 
+* [ADC](./adc/adc.md)
+* [COUNTER](./counter/counter.md)
+* [IRQ](./irq/irq.md)
+* [LCD](./lcd/lcd.md)
 * [PORT](./port/port.md)
 * [PWM](./pwm/pwm.md)
-* [ADC](./adc/adc.md)
-* [UART](./uart/uart.md)
 * [SPI](./spi/spi.md)
 * [TWI](./twi/twi.md)
-* [LCD](./lcd/lcd.md)
-* [COUNTER](./counter/counter.md)
+* [UART](./uart/uart.md)
 
 
 ## Compatibility
 
 In the following table functions which are compatible with the function in the first row are listed.
 
-| Function | adc | counter | lcd | port | pwm | spi | twi | uart |
-|---------:|:---:|:-------:|:---:|:----:|:---:|:---:|:---:|:----:|
-| adc      |     | +       | +   | +    | +   | +   | +   | +    |
-| counter  | +   |         | +   | +    | -   | +   | +   | +    |
-| lcd      | +   | +       |     | +    | +   | +   | +   | +    |
-| port     | +   | +       | +   |      | +   | +   | +   | +    |
-| pwm      | +   | -       | +   | +    |     | +   | +   | +    |
-| spi      | +   | +       | +   | +    | +   |     | +   | +    |
-| twi      | +   | +       | +   | +    | +   | +   |     | +    |
-| uart     | +   | +       | +   | +    | +   | +   | +   |      |
+| Function | adc | counter | irq |lcd  | port | pwm | spi | twi | uart |
+|---------:|:---:|:-------:|:---:|:---:|:----:|:---:|:---:|:---:|:----:|
+| adc      |     | +       | +   | +   | +    | +   | +   | +   | +    |
+| counter  | +   |         | +   | +   | +    | -   | +   | +   | +    |
+| irq      | +   | +       |     | +   | +    | +   | +   | +   | +    |
+| lcd      | +   | +       | +   |     | +    | +   | +   | +   | +    |
+| port     | +   | +       | +   | +   |      | +   | +   | +   | +    |
+| pwm      | +   | -       | +   | +   | +    |     | +   | +   | +    |
+| spi      | +   | +       | +   | +   | +    | +   |     | +   | +    |
+| twi      | +   | +       | +   | +   | +    | +   | +   |     | +    |
+| uart     | +   | +       | +   | +   | +    | +   | +   | +   |      |
 
 
 (At the moment not all functions are tested in combination, so if there is any issue please feel free to start an issue)

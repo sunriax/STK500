@@ -36,11 +36,11 @@ void uart_init(unsigned char datasize, unsigned char parity, unsigned char stopb
 	// Setup datasize
 	switch(datasize)
 	{
-		case '5' : SETREG &= ~((1<<UCSZ2) | (1<<UCSZ1) | (1<<UCSZ0));	break;	// 5 Bit mode
-		case '6' : SETREG |= (1<<UCSZ0);								break;	// 6 Bit mode
-		case '7' : SETREG |= (1<<UCSZ1);								break;	// 7 Bit mode
-		case '9' : SETREG |= (1<<UCSZ2) | (1<<UCSZ1) | (1<<UCSZ0);		break;	// 9 Bit mode
-		default	 : SETREG |= (1<<URSEL) | (1<<UCSZ1) | (1<<UCSZ0);		break;	// 8 Bit mode (Standard)
+		case 5	: SETREG &= ~((1<<UCSZ2) | (1<<UCSZ1) | (1<<UCSZ0));	break;	// 5 Bit mode
+		case 6	: SETREG |= (1<<UCSZ0);								break;	// 6 Bit mode
+		case 7	: SETREG |= (1<<UCSZ1);								break;	// 7 Bit mode
+		case 9	: SETREG |= (1<<UCSZ2) | (1<<UCSZ1) | (1<<UCSZ0);		break;	// 9 Bit mode
+		default	: SETREG |= (1<<URSEL) | (1<<UCSZ1) | (1<<UCSZ0);		break;	// 8 Bit mode (Standard)
 	}
 	
 	// Setup paritybit
@@ -54,8 +54,8 @@ void uart_init(unsigned char datasize, unsigned char parity, unsigned char stopb
 	// Setup stopbits
 	switch(stopbits)
 	{
-		case '2' :	SETREG |= (1<<USBS);		break;	// 2 stopbit
-		default  :	SETREG &= ~(1<<USBS);		break;	// 1 stopbit (Standard)
+		case 2	:	SETREG |= (1<<USBS);		break;	// 2 stopbit
+		default	:	SETREG &= ~(1<<USBS);		break;	// 1 stopbit (Standard)
 	}
 	
 	
@@ -140,14 +140,14 @@ void uart_reset(void)
 		
 		switch (delimiter)
 		{
-			case(0)	:	uart_setchar(0x00);	break;	// NUL		(NULL)
-			case(1)	:	uart_setchar(0x0D);	break;	// CR		(CR)
-			case(2)	:	uart_setchar(0x0A);	break;	// LF		(NULL)
-			case(3)	:	uart_setchar(0x0A);			// LF		(Line Feed)
+			case 0	:	uart_setchar(0x00);	break;	// NUL		(NULL)
+			case 1	:	uart_setchar(0x0D);	break;	// CR		(CR)
+			case 2	:	uart_setchar(0x0A);	break;	// LF		(NULL)
+			case 3	:	uart_setchar(0x0A);			// LF		(Line Feed)
 						uart_setchar(0x0D);	break;	// CR		(Carriage Return)
-			case(4)	:	uart_setchar(0x09);	break;	// TAB		(tab)
-			case(5)	:	uart_setchar(0x20);	break;	// SPACE	(space)
-			case(6)	:	uart_setchar(0x1B);	break;	// ESC		(escape)
+			case 4	:	uart_setchar(0x09);	break;	// TAB		(tab)
+			case 5	:	uart_setchar(0x20);	break;	// SPACE	(space)
+			case 6	:	uart_setchar(0x1B);	break;	// ESC		(escape)
 			default	:						break;	// do nothing
 		}
 	}

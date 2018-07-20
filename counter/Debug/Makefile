@@ -37,6 +37,8 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../counter16.c \
+../counter8.c \
 ../counter.c
 
 
@@ -47,15 +49,23 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+counter16.o \
+counter8.o \
 counter.o
 
 OBJS_AS_ARGS +=  \
+counter16.o \
+counter8.o \
 counter.o
 
 C_DEPS +=  \
+counter16.d \
+counter8.d \
 counter.d
 
 C_DEPS_AS_ARGS +=  \
+counter16.d \
+counter8.d \
 counter.d
 
 OUTPUT_FILE_PATH +=libcounter.a
@@ -72,6 +82,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 

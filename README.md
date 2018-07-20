@@ -9,7 +9,7 @@ The STK500 repository is a set of library's used in the [module](https://github.
 1. Supported Controller
    * Atmel ATmega8
    * Atmel ATmega16
-   * Atmel ATmega32
+   * All ATmega with same interface type
 1. Development Hardware
    * STK500 ([Atmel](http://www.microchip.com/webdoc/stk500/index.html))
    * Megacard ([HTL-Rankweil](http://www.htl-rankweil.at/))

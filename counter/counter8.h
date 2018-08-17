@@ -63,4 +63,7 @@
 //	#endif
 // #endif
 
+#include <avr/io.h>
+#include <avr/interrupt.h>
+
 #endif /* COUNTER8_H_ */

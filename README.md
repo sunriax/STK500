@@ -54,7 +54,7 @@ In the following table functions which are compatible with the function in the f
 | uart     | +   | +       | +   | +   | +    | +   | +   | +   |      |
 
 
-(At the moment not all functions are tested in combination, so if there is any issue please feel free to start an issue)
+(At the moment not all functions are tested in combination, so if there is any issue please feel free to report!)
 
 ## Important Notice
 

@@ -19,7 +19,17 @@
 //	|					SPI initialization							|
 //	+---------------------------------------------------------------+
 unsigned char spi_init(unsigned char operation, unsigned char direction, unsigned char polarity, unsigned char spiclock)
-{
+{	
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//       SPECIAL FUNCTION
+	// If during Initialisation SS
+	// Pin is LOW, SPI Controller
+	// will be configured as Slave.
+	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	
+	SPI_DDR  |= (1<<SPI_SS);	// Setup SCK, MOSI and SS as output
+	SPI_PORT |= (1<<SPI_SS);	// Activate pull up resistor at Slave Select
+	
 	// Double speed setup
 	#ifdef SPI2X
 		SPSR = (1<<SPI2X);						// Double Speed Mode activated
@@ -33,17 +43,7 @@ unsigned char spi_init(unsigned char operation, unsigned char direction, unsigne
 		case 0   : SPCR = 0x00;			break;	// Slave mode
 		default	 : SPCR = (1<<MSTR);	break;	// Master mode
 	}
-	
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	//       SPECIAL FUNCTION
-	// If during Initialisation SS
-	// Pin is LOW, SPI Controller
-	// will be configured as Slave.
-	// !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	
-	SPI_DDR  |= (1<<SPI_SCK) | (1<<SPI_MOSI) | (1<<SPI_SS);	// Setup SCK, MOSI and SS as output
-	SPI_DDR  &= ~(1<<SPI_MISO);								// Setup MISO as input
-	SPI_PORT |= (1<<SPI_SS);								// Activate pull up resistor at Slave Select
+
 	
 	// MSB / LSB Direction
 	switch(direction)
@@ -78,10 +78,12 @@ unsigned char spi_init(unsigned char operation, unsigned char direction, unsigne
 	
 	SPCR |= (1<<SPE);	// Activate the SPI Controller
 	
-	// Check if master abort is happened
-	if(SPSR & (1<<SPIF))
+	SPI_DDR  |= (1<<SPI_SCK) | (1<<SPI_MOSI) | (1<<SPI_MISO) | (1<<SPI_SS);	// Setup SCK, MOSI, MISO and SS as output
+	
+	// Check if master abort has occurred
+	if(!(SPCR & (1<<MSTR)))
 		return 0xFF;	// Return master abort
-	return SPCR;		// Return SPI control register status
+	return 0x00;		// Return SPI control register status
 }
 
 //	+---------------------------------------------------------------+

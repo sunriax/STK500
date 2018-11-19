@@ -95,7 +95,7 @@ unsigned char twi_start(void)
 //	+---------------------------------------------------------------+
 void twi_stop(void)
 {
-	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);	// Stop a TWI transmission
+	TWCR = (1<<TWEN) | (1<<TWSTO);	// Stop a TWI transmission
 }
 
 //	+---------------------------------------------------------------+

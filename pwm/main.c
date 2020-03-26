@@ -1,17 +1,17 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: pwm
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       generateing a pwm signal
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Sample for generating pwm signals with
+ *   pwm library
+ * -----------------------------------------
  */
+
 
 // PORT settings
 #define INPUT 0b00000001	// Set input PORT (PORTA)

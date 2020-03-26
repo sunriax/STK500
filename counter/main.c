@@ -1,16 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: counter
- * Ver.: 1.0 Debug
- * Type: Executable
- * Text: Demo application for numeric
- *       counting operations
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Sample for counter initialisation with
+ *   the counter library
+ * -----------------------------------------
  */
 
 // PORT settings

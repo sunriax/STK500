@@ -1,16 +1,14 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: pwm
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       generating a pwm signal
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Header file for pwm library
+ * -----------------------------------------
  */
 
 /* !!! Calculation of the signal frequencies can be found at the pwm.md file !!! */

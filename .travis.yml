@@ -1,5 +1,5 @@
-﻿# Travis CI for compiling Atmel Studio 7 Solution
-# -----------------------------------------------
+# Travis CI for compiling Atmel Studio 7 Solutions
+# ------------------------------------------------
 language: c
 sudo: false
 
@@ -10,68 +10,18 @@ addons:
       - binutils-avr
       - avr-libc
       - gcc-avr
+      - git
 
 install:
+  - git --version
   - avr-gcc --version
   - make --version
 
-# Execute Commands bevor Build
+# Execute Commands before Build
 before_script:
-  - chmod 0777 scripts/CI/makefile2unix.sh
-  - scripts/CI/makefile2unix.sh port/
-  #- scripts/CI/makefile2unix.sh portDEMO/
-  - scripts/CI/makefile2unix.sh uart/
-  #- scripts/CI/makefile2unix.sh uartDEMO/
-  - scripts/CI/makefile2unix.sh spi/
-  #- scripts/CI/makefile2unix.sh spiDEMO/
-  - scripts/CI/makefile2unix.sh twi/
-  #- scripts/CI/makefile2unix.sh twiDEMO/
-  - scripts/CI/makefile2unix.sh adc/
-  #- scripts/CI/makefile2unix.sh adcDEMO/
-  - scripts/CI/makefile2unix.sh pwm/
-  #- scripts/CI/makefile2unix.sh pwmDEMO/
-  - scripts/CI/makefile2unix.sh lcd/
-  #- scripts/CI/makefile2unix.sh lcdDEMO/
-  - scripts/CI/makefile2unix.sh counter/
-  #- scripts/CI/makefile2unix.sh counterDEMO/
-  - scripts/CI/makefile2unix.sh irq/
-  #- scripts/CI/makefile2unix.sh irqDEMO/
+  - git clone https://github.com/sunriax/script.git
+  - chmod 0777 script/atmel/atmel2gcc
 
 # Run Build Script
 script:
-  - cd port/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd spi/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd uart/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd twi/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd pwm/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd adc/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd lcd/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd counter/Debug
-  - mkdir src
-  - make
-  - cd ../../
-  - cd irq/Debug
-  - mkdir src
-  - make
-  - cd ../../
+  - script/atmel/atmel2gcc ${PWD} Debug

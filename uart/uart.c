@@ -1,17 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: uart
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       communication over UART
- * -------------------------------------
- */ 
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Function file for uart library
+ * -----------------------------------------
+ */
 
 #include "uart.h"
 

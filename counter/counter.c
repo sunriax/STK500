@@ -1,17 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: counter
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       run counter
- * -------------------------------------
- */ 
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Function file for counter library
+ * -----------------------------------------
+ */
 
 #include "counter.h"
 

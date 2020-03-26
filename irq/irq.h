@@ -1,17 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: irq
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       run interrupt service request
- * -------------------------------------
- */ 
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Header file for irq library
+ * -----------------------------------------
+ */
 
 #ifndef IRQ_H_
 #define IRQ_H_

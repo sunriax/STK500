@@ -1,16 +1,14 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: pwm
- * Ver.: 1.0 Release
- * Type: Library
- * Text: Routines for initializing and
- *       generating a pwm signal
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Function file for pwm library
+ * -----------------------------------------
  */
 
 /* !!! Calculation of the signal frequencies can be found at the pwm.md file !!! */
@@ -32,7 +30,7 @@ volatile unsigned char PWM_SIGNAL_MODE;
 	volatile unsigned char PWM_SINE_COUNT;
 	volatile unsigned char PWM_SINE_QUADRANT;
 
-// Select the sine table size for the project (0°- 90°)
+// Select the sine table size for the project (0ï¿½- 90ï¿½)
 
 /* 10 */	//	const unsigned char PWM_SINE_TABLE[] = { 0, 20, 39, 58, 75, 90, 103, 113, 121, 125 };
 /* 15 */		const unsigned char PWM_SINE_TABLE[] = { 0, 13, 26, 39, 52, 63, 75, 85, 94, 103, 110, 116, 121, 124, 126 };
@@ -119,7 +117,7 @@ volatile unsigned char PWM_SIGNAL_MODE;
 			// Switch to active quadrant
 			switch(PWM_SINE_QUADRANT)
 			{
-				// Quadrant 1 (0° - 90°)
+				// Quadrant 1 (0ï¿½ - 90ï¿½)
 				case 1	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
 							if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
 							{
@@ -154,7 +152,7 @@ volatile unsigned char PWM_SIGNAL_MODE;
 								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
 							}
 							break;
-				// Quadrant 2 (90° - 180°)
+				// Quadrant 2 (90ï¿½ - 180ï¿½)
 				case 2	:	// If VALUE greater than 0
 							if(PWM_SINE_VALUE > CHAR_MIN)
 							{
@@ -180,7 +178,7 @@ volatile unsigned char PWM_SIGNAL_MODE;
 								OCR0 = (CHAR_MAX / 2) + PWM_SINE_TABLE[PWM_SINE_VALUE];
 							}
 							break;
-				// Quadrant 3 (180° - 270°)
+				// Quadrant 3 (180ï¿½ - 270ï¿½)
 				case 3	:	// If VALUE lower than (SINE_TABLE_SIZE - 1)
 							if(PWM_SINE_VALUE < (sizeof(PWM_SINE_TABLE) - 1))
 							{
@@ -216,7 +214,7 @@ volatile unsigned char PWM_SIGNAL_MODE;
 								OCR0 = (CHAR_MAX / 2) - PWM_SINE_TABLE[PWM_SINE_VALUE];
 							}
 							break;
-				// Quadrant 4 (270° - 0°)
+				// Quadrant 4 (270ï¿½ - 0ï¿½)
 				case 4	:	// If VALUE greater than 0
 							if(PWM_SINE_VALUE > CHAR_MIN)
 							{

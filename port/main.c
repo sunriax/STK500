@@ -1,16 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: portDEMO
- * Ver.: 1.0 Release
- * Type: Executeable
- * Text: Demo application for PORT
- *       interaction
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Sample for reading/writing data from
+ *   ports with port library
+ * -----------------------------------------
  */
 
 // Systemclock

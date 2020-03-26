@@ -1,16 +1,15 @@
-/* -------------------------------------
- * SUNriaX Project
+/* -----------------------------------------
+ * SUNriaX Engineering
  * www.sunriax.at
- * -------------------------------------
- * Hardware: Megacard/STK500
- * Platform: ATmega8/16/32
- * -------------------------------------
- * Name: irq
- * Ver.: 1.0 Debug
- * Type: Executable
- * Text: Demo application for irq
- *       handling
- * -------------------------------------
+ * -----------------------------------------
+ *    Hardware: STK500/Megacard (ATmega16)
+ * -----------------------------------------
+ *     Version: 1.0 Release
+ *      Author: G.Raf
+ * Description:
+ *   Sample for irq execution with the
+ *   irq library
+ * -----------------------------------------
  */
 
 // PORT settings

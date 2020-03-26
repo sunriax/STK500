@@ -6,8 +6,8 @@ _This repository is free software: you can redistribute it and/or modify it unde
 **License along with this program.**  
 **If not, see http://www.gnu.org/licenses/.**  
 
-**Copyright (c) 2017 SUNriaX Project, all rights reserved**  
+**Copyright (c) 2020 SUNriaX Engineering, all rights reserved**  
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
 
 ---
-**R. GÄCHTER, Rankweil Dec/2017**
+**R. GÄCHTER, Rankweil March/2020**
